@@ -1,2000 +1,1411 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rushit Khakhkhar — Machine Learning &amp; Big Data Engineer | Interactive Portfolio</title>
-<meta name="description" content="Interactive portfolio & CV of Rushit Khakhkhar — B.Tech IT at VIT Vellore. PySpark Big Data Pipelines (4.32M+ records), Machine Learning (XGBoost / Random Forest / ARIMA), and Full-Stack Engineering.">
+<title>Rushit Khakhkhar — ML & Big Data Engineer</title>
+<meta name="description" content="Portfolio of Rushit Khakhkhar — B.Tech IT, VIT Vellore. PySpark pipelines processing 4.32M+ records, ML systems, Full-Stack applications.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-/* ==========================================================================
-   1. DESIGN TOKENS & SYSTEM
-   ========================================================================== */
-:root {
-  --bg-primary: #040711;
-  --bg-secondary: #090e1d;
-  --bg-card: rgba(13, 21, 38, 0.72);
-  --bg-card-hover: rgba(20, 32, 58, 0.88);
-  --bg-glass: rgba(15, 23, 42, 0.65);
-  
-  --border: rgba(255, 255, 255, 0.08);
-  --border-light: rgba(255, 255, 255, 0.14);
-  --border-cyan: rgba(56, 189, 248, 0.45);
-  --border-purple: rgba(168, 85, 247, 0.45);
-  
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --text-faint: #64748b;
-  
-  --cyan: #38bdf8;
-  --blue: #3b82f6;
-  --indigo: #6366f1;
-  --purple: #a855f7;
-  --emerald: #10b981;
-  --amber: #f59e0b;
-  --rose: #f43f5e;
-  
-  --gradient-neon: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
-  --gradient-glow: linear-gradient(135deg, rgba(56,189,248,0.18), rgba(168,85,247,0.18));
-  --gradient-card: linear-gradient(145deg, rgba(20, 32, 58, 0.6), rgba(10, 16, 30, 0.8));
-  --gradient-fire: linear-gradient(135deg, #f43f5e, #fb923c);
-  --gradient-emerald: linear-gradient(135deg, #10b981, #06b6d4);
-  
-  --shadow-sm: 0 4px 20px -2px rgba(0,0,0,0.5);
-  --shadow-glow: 0 0 35px -5px rgba(56, 189, 248, 0.3);
-  --shadow-purple: 0 0 35px -5px rgba(168, 85, 247, 0.3);
-  
-  --radius-xl: 24px;
-  --radius-lg: 16px;
-  --radius-md: 12px;
-  --radius-sm: 8px;
-  --radius-full: 9999px;
-  
-  --ff-display: 'Sora', sans-serif;
-  --ff-body: 'Plus Jakarta Sans', sans-serif;
-  --ff-mono: 'JetBrains Mono', monospace;
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
-}
 
-html[data-theme="light"] {
-  --bg-primary: #f8fafc;
-  --bg-secondary: #ffffff;
-  --bg-card: rgba(255, 255, 255, 0.9);
-  --bg-card-hover: #ffffff;
-  --bg-glass: rgba(255, 255, 255, 0.8);
-  
-  --border: rgba(15, 23, 42, 0.08);
-  --border-light: rgba(15, 23, 42, 0.12);
-  --border-cyan: rgba(2, 132, 199, 0.4);
-  --border-purple: rgba(147, 51, 234, 0.4);
-  
-  --text-main: #0f172a;
-  --text-muted: #475569;
-  --text-faint: #94a3b8;
-  
-  --cyan: #0284c7;
-  --blue: #2563eb;
-  --indigo: #4f46e5;
-  --purple: #9333ea;
-  --emerald: #059669;
-  --amber: #d97706;
-  --rose: #e11d48;
-  
-  --shadow-sm: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
-  --shadow-glow: 0 0 30px -5px rgba(2, 132, 199, 0.2);
-  --shadow-purple: 0 0 30px -5px rgba(147, 51, 234, 0.2);
-}
-
-/* ==========================================================================
-   2. GLOBAL BASE & RESET
-   ========================================================================== */
+/* =======================================================================
+   CUSTOM CURSOR
+   ======================================================================= */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { background: var(--bg-primary); color: var(--text-main); }
+html { cursor: none; }
+body { cursor: none; }
+a, button, [role="button"], input, select, textarea, label { cursor: none; }
+
+#cursor {
+  position: fixed; width: 12px; height: 12px; border-radius: 50%;
+  background: #FF4D1C; pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+  mix-blend-mode: normal;
+}
+#cursor-ring {
+  position: fixed; width: 40px; height: 40px; border-radius: 50%;
+  border: 1.5px solid rgba(255, 77, 28, 0.5); pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s ease, width 0.25s ease, height 0.25s ease, opacity 0.25s ease, border-color 0.2s ease;
+}
+body.cursor-hover #cursor { width: 20px; height: 20px; }
+body.cursor-hover #cursor-ring { width: 60px; height: 60px; border-color: rgba(255,77,28,0.8); }
+body.cursor-click #cursor { transform: translate(-50%, -50%) scale(0.6); }
+
+/* =======================================================================
+   DESIGN TOKENS
+   ======================================================================= */
+:root {
+  --bg: #0A0A0A;
+  --surface: #111111;
+  --surface-2: #161616;
+  --card: #1A1A1A;
+  --card-hover: #202020;
+  --border: rgba(255,255,255,0.07);
+  --border-hi: rgba(255,255,255,0.14);
+  --text: #EFEFEF;
+  --muted: #6B6B6B;
+  --subtle: #404040;
+  --orange: #FF4D1C;
+  --orange-dim: rgba(255, 77, 28, 0.15);
+  --orange-glow: rgba(255, 77, 28, 0.25);
+  --gold: #F5A623;
+  --lime: #B8F067;
+  --ff-display: 'Bebas Neue', sans-serif;
+  --ff-body: 'Space Grotesk', sans-serif;
+  --ff-mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* =======================================================================
+   GLOBALS
+   ======================================================================= */
+html { background: var(--bg); scroll-behavior: smooth; }
 body {
-  font-family: var(--ff-body); font-size: 16px; line-height: 1.68;
-  background: var(--bg-primary); color: var(--text-main);
-  overflow-x: hidden; -webkit-font-smoothing: antialiased;
+  font-family: var(--ff-body); font-size: 16px; line-height: 1.6;
+  background: var(--bg); color: var(--text); overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
-h1, h2, h3, h4, h5 { font-family: var(--ff-display); letter-spacing: -0.025em; line-height: 1.25; }
 a { color: inherit; text-decoration: none; }
-button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
-::selection { background: var(--cyan); color: #000; }
+button { font: inherit; color: inherit; background: none; border: none; }
+::selection { background: var(--orange); color: #000; }
 
-/* Interactive Canvas Background */
-#canvas-bg {
-  position: fixed; inset: 0; width: 100vw; height: 100vh;
-  z-index: -2; pointer-events: none; opacity: 0.7;
-}
-.ambient-glow {
-  position: fixed; top: -180px; left: 50%; transform: translateX(-50%);
-  width: 1000px; height: 600px; border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.16) 0%, rgba(168, 85, 247, 0.1) 45%, transparent 70%);
-  z-index: -1; pointer-events: none;
-}
-.ambient-glow-bottom {
-  position: fixed; bottom: -200px; right: -100px;
-  width: 700px; height: 500px; border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.12) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 70%);
-  z-index: -1; pointer-events: none;
+/* Grain texture overlay */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 1000;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 200px 200px;
+  opacity: 0.03; pointer-events: none;
 }
 
-/* ==========================================================================
-   3. NAVIGATION BAR
-   ========================================================================== */
-.navbar-wrap {
-  position: sticky; top: 16px; z-index: 100;
-  width: min(1180px, 94vw); margin: 0 auto;
-}
-.navbar {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 8px 18px; border-radius: var(--radius-full);
-  background: rgba(9, 14, 29, 0.85); backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px); border: 1px solid var(--border);
-  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.6);
-}
-html[data-theme="light"] .navbar { background: rgba(255, 255, 255, 0.92); }
+.wrap { width: min(1200px, 92vw); margin-inline: auto; }
+.wrap--wide { width: min(1360px, 95vw); margin-inline: auto; }
 
-.nav-brand {
-  font-family: var(--ff-display); font-weight: 800; font-size: 1.15rem;
-  display: flex; align-items: center; gap: 10px;
+/* =======================================================================
+   SIDE NAVIGATION
+   ======================================================================= */
+.sidenav {
+  position: fixed; left: 28px; top: 50%; transform: translateY(-50%);
+  z-index: 100; display: flex; flex-direction: column; gap: 24px;
+  align-items: center;
 }
-.brand-badge {
-  font-family: var(--ff-mono); font-size: 0.68rem; font-weight: 700;
-  padding: 3px 8px; border-radius: 6px;
-  background: var(--gradient-neon); color: #000;
-  text-transform: uppercase; letter-spacing: 0.05em;
+.sidenav-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--subtle); transition: all 0.3s ease;
+  position: relative;
 }
-.nav-links { display: flex; align-items: center; gap: 4px; overflow-x: auto; }
-.nav-links::-webkit-scrollbar { display: none; }
-.nav-link {
-  padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.88rem;
-  font-weight: 600; color: var(--text-muted); transition: all 0.2s ease;
-  white-space: nowrap;
+.sidenav-dot.active { background: var(--orange); box-shadow: 0 0 10px var(--orange); }
+.sidenav-dot::after {
+  content: attr(data-label);
+  position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+  font-family: var(--ff-mono); font-size: 0.65rem; color: var(--muted);
+  white-space: nowrap; opacity: 0; transition: opacity 0.2s ease;
+  pointer-events: none;
 }
-.nav-link:hover { color: var(--text-main); background: rgba(255,255,255,0.06); }
-.nav-link.active {
-  color: #fff; background: linear-gradient(135deg, var(--cyan), var(--indigo));
-  box-shadow: 0 4px 15px -3px rgba(56, 189, 248, 0.4);
-}
-.nav-actions { display: flex; align-items: center; gap: 8px; }
-.icon-btn {
-  width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center;
-  border: 1px solid var(--border); color: var(--text-main); transition: all 0.2s ease;
-  background: var(--bg-card);
-}
-.icon-btn:hover { border-color: var(--cyan); color: var(--cyan); transform: scale(1.05); }
+.sidenav-dot:hover::after, .sidenav-dot.active::after { opacity: 1; }
 
-/* ==========================================================================
-   4. LAYOUT & TYPOGRAPHY UTILITIES
-   ========================================================================== */
-.wrap { width: min(1180px, 92vw); margin-inline: auto; }
-section { padding: 85px 0; position: relative; }
-.gradient-text {
-  background: var(--gradient-neon); -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; display: inline-block;
+/* Top bar minimal */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  padding: 20px 40px; display: flex; justify-content: space-between; align-items: center;
+  background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
 }
-.gradient-text-emerald {
-  background: var(--gradient-emerald); -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; display: inline-block;
+.topbar-brand {
+  font-family: var(--ff-mono); font-size: 0.82rem; font-weight: 700;
+  color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase;
+}
+.topbar-brand span { color: var(--orange); }
+.topbar-right { display: flex; align-items: center; gap: 20px; }
+.topbar-link {
+  font-family: var(--ff-mono); font-size: 0.75rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  transition: color 0.2s ease;
+}
+.topbar-link:hover { color: var(--text); }
+.topbar-cta {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 18px; border: 1px solid var(--orange); border-radius: 4px;
+  font-family: var(--ff-mono); font-size: 0.75rem; font-weight: 700;
+  color: var(--orange); text-transform: uppercase; letter-spacing: 0.06em;
+  transition: all 0.2s ease;
+}
+.topbar-cta:hover { background: var(--orange); color: #000; }
+
+/* =======================================================================
+   HERO — BIG EDITORIAL LAYOUT
+   ======================================================================= */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: flex-end; padding-bottom: 80px;
+  position: relative; overflow: hidden;
 }
 
-.sec-header { text-align: center; max-width: 720px; margin: 0 auto 50px; }
-.sec-tag {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--ff-mono); font-size: 0.78rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.1em;
-  padding: 6px 14px; border-radius: var(--radius-full);
-  background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25);
-  color: var(--cyan); margin-bottom: 16px;
+.hero-bg-text {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-family: var(--ff-display); font-size: clamp(150px, 22vw, 320px);
+  color: rgba(255,255,255,0.018); white-space: nowrap; pointer-events: none;
+  user-select: none; letter-spacing: 0.02em; line-height: 1;
 }
-.sec-title { font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 800; margin-bottom: 14px; }
-.sec-desc { color: var(--text-muted); font-size: 1.05rem; }
 
-/* Buttons */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 12px 24px; border-radius: var(--radius-full); font-weight: 600;
-  font-size: 0.95rem; transition: all 0.25s var(--ease); cursor: pointer;
-  white-space: nowrap; text-decoration: none;
+.hero-eyebrow {
+  font-family: var(--ff-mono); font-size: 0.78rem; color: var(--orange);
+  text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 28px;
+  display: flex; align-items: center; gap: 12px;
 }
+.hero-eyebrow::before {
+  content: ''; display: block; width: 32px; height: 1px; background: var(--orange);
+}
+
+.hero-title {
+  font-family: var(--ff-display); font-size: clamp(72px, 11vw, 160px);
+  line-height: 0.9; letter-spacing: 0.01em;
+  margin-bottom: 0;
+}
+.hero-title-line { display: block; overflow: hidden; }
+.hero-title-line--accent { color: var(--orange); }
+
+.hero-bottom {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 40px;
+  align-items: end; margin-top: 50px; padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+.hero-desc {
+  font-size: 1rem; color: var(--muted); line-height: 1.7; max-width: 340px;
+}
+.hero-desc strong { color: var(--text); font-weight: 600; }
+.hero-stats-inline {
+  display: flex; gap: 32px; justify-content: center;
+}
+.hero-stat { text-align: center; }
+.hero-stat-num {
+  font-family: var(--ff-display); font-size: 2.5rem; color: var(--text); display: block;
+}
+.hero-stat-label {
+  font-family: var(--ff-mono); font-size: 0.68rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.hero-actions { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+
 .btn-primary {
-  background: var(--gradient-neon); color: #000; font-weight: 700;
-  box-shadow: 0 4px 20px -3px rgba(56, 189, 248, 0.4);
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; background: var(--orange); color: #000;
+  font-family: var(--ff-mono); font-size: 0.82rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em; border: none;
+  border-radius: 3px; transition: all 0.2s ease; cursor: none;
 }
-.btn-primary:hover {
-  transform: translateY(-2px); box-shadow: 0 8px 30px -4px rgba(56, 189, 248, 0.6);
+.btn-primary:hover { background: #fff; transform: translateY(-2px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; background: transparent; color: var(--muted);
+  font-family: var(--ff-mono); font-size: 0.82rem;
+  text-transform: uppercase; letter-spacing: 0.06em; border: none;
+  transition: color 0.2s ease; cursor: none;
 }
-.btn-secondary {
-  background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border);
-  backdrop-filter: blur(10px);
-}
-.btn-secondary:hover {
-  border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px);
-  background: var(--bg-card-hover);
-}
-.btn-sm { padding: 8px 16px; font-size: 0.85rem; }
+.btn-ghost:hover { color: var(--text); }
 
-/* ==========================================================================
-   5. HERO SECTION
-   ========================================================================== */
-.hero { padding: 60px 0 70px; min-height: 90vh; display: flex; align-items: center; }
-.hero-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 40px; align-items: center; }
-
-.status-pill {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 6px 14px; border-radius: var(--radius-full);
-  background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3);
-  color: var(--emerald); font-size: 0.85rem; font-weight: 600; margin-bottom: 24px;
+/* Status badge */
+.status-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--ff-mono); font-size: 0.72rem; color: var(--lime);
+  text-transform: uppercase; letter-spacing: 0.08em;
 }
 .status-dot {
-  width: 8px; height: 8px; border-radius: 50%; background: var(--emerald);
-  box-shadow: 0 0 10px var(--emerald); animation: pulseDot 2s infinite ease-in-out;
+  width: 7px; height: 7px; border-radius: 50%; background: var(--lime);
+  animation: blink 1.8s infinite;
 }
-@keyframes pulseDot { 0%,100%{ opacity: 1; transform: scale(1); } 50%{ opacity: 0.4; transform: scale(0.85); } }
+@keyframes blink { 0%,100%{ opacity:1; } 50%{ opacity:0.3; } }
 
-.hero-title { font-size: clamp(2.4rem, 4.8vw, 3.6rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
-.hero-subtitle { font-size: 1.12rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 30px; }
-.hero-subtitle strong { color: var(--text-main); font-weight: 600; }
-
-.hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 36px; }
-
-.hero-stats {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
-  padding-top: 24px; border-top: 1px solid var(--border);
+/* =======================================================================
+   SECTION UTILITY
+   ======================================================================= */
+.section { padding: 100px 0; }
+.section-label {
+  font-family: var(--ff-mono); font-size: 0.72rem; color: var(--orange);
+  text-transform: uppercase; letter-spacing: 0.15em;
+  display: flex; align-items: center; gap: 12px; margin-bottom: 48px;
 }
-.stat-item { display: flex; flex-direction: column; }
-.stat-num { font-family: var(--ff-display); font-size: 1.6rem; font-weight: 800; color: var(--text-main); }
-.stat-label { font-size: 0.82rem; color: var(--text-muted); font-weight: 500; }
-
-/* ==========================================================================
-   6. HERO INTERACTIVE PLAYGROUND & TERMINAL
-   ========================================================================== */
-.terminal-window {
-  background: rgba(11, 17, 33, 0.95);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.8), 0 0 30px -10px rgba(56, 189, 248, 0.2);
-  overflow: hidden; backdrop-filter: blur(20px);
-  display: flex; flex-direction: column; height: 500px;
+.section-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+  max-width: 60px;
 }
-html[data-theme="light"] .terminal-window { background: #0f172a; color: #f8fafc; }
-
-.terminal-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 16px; background: rgba(0,0,0,0.35); border-bottom: 1px solid rgba(255,255,255,0.06);
+.section-number {
+  font-family: var(--ff-display); font-size: clamp(80px, 10vw, 120px);
+  color: rgba(255,255,255,0.04); position: absolute;
+  top: 80px; right: 0; line-height: 1; pointer-events: none; user-select: none;
+  letter-spacing: 0.02em;
 }
-.terminal-dots { display: flex; gap: 7px; }
-.t-dot { width: 11px; height: 11px; border-radius: 50%; }
-.t-red { background: #ef4444; } .t-yellow { background: #eab308; } .t-green { background: #22c55e; }
+.section-heading {
+  font-family: var(--ff-display); font-size: clamp(40px, 6vw, 72px);
+  line-height: 1.05; margin-bottom: 24px;
+}
 
-.terminal-tabs { display: flex; gap: 6px; overflow-x: auto; }
-.t-tab {
+/* =======================================================================
+   BENTO GRID — ABOUT / PROFILE
+   ======================================================================= */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: min-content;
+  gap: 14px;
+}
+.bento-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 28px; position: relative; overflow: hidden;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.bento-card:hover { border-color: var(--border-hi); background: var(--card-hover); }
+.bento-card--span-4 { grid-column: span 4; }
+.bento-card--span-5 { grid-column: span 5; }
+.bento-card--span-6 { grid-column: span 6; }
+.bento-card--span-7 { grid-column: span 7; }
+.bento-card--span-8 { grid-column: span 8; }
+.bento-card--span-12 { grid-column: span 12; }
+.bento-card--accent { border-color: var(--orange-dim); }
+.bento-card--accent:hover { border-color: var(--orange); }
+
+.bento-label {
+  font-family: var(--ff-mono); font-size: 0.68rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px;
+}
+.bento-value {
+  font-family: var(--ff-display); font-size: 2.8rem; color: var(--text);
+  line-height: 1;
+}
+.bento-value--lg { font-size: clamp(2.5rem, 4vw, 4rem); }
+.bento-value--orange { color: var(--orange); }
+.bento-text { font-size: 0.92rem; color: var(--muted); line-height: 1.7; }
+
+/* Live terminal mini inside bento */
+.bento-terminal {
+  background: #0D0D0D; border-radius: 8px; padding: 16px;
+  font-family: var(--ff-mono); font-size: 0.78rem; line-height: 1.6;
+  height: 100%; min-height: 140px;
+}
+.t-line { color: #5a5a5a; }
+.t-line--prompt { color: var(--orange); }
+.t-line--out { color: #a0a0a0; }
+.t-line--hi { color: var(--lime); }
+.t-cursor { display: inline-block; width: 8px; height: 14px; background: var(--orange); vertical-align: middle; animation: blink 1s infinite; }
+
+/* Skill bars inside bento */
+.skill-bars { display: flex; flex-direction: column; gap: 12px; }
+.skill-bar-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; }
+.skill-bar-track { height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; flex: 1; position: relative; }
+.skill-bar-fill { height: 100%; border-radius: 2px; background: var(--orange); }
+.skill-name { font-size: 0.82rem; color: var(--muted); }
+.skill-pct { font-family: var(--ff-mono); font-size: 0.72rem; color: var(--subtle); }
+
+/* =======================================================================
+   PROJECT SHOWCASE — HORIZONTAL LIST
+   ======================================================================= */
+.project-list { display: flex; flex-direction: column; gap: 0; }
+.project-item {
+  display: grid; grid-template-columns: 80px 1fr auto;
+  align-items: center; gap: 32px;
+  padding: 28px 0; border-bottom: 1px solid var(--border);
+  transition: all 0.3s ease; cursor: none;
+  text-decoration: none; color: var(--text);
+  position: relative;
+}
+.project-item::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -1px;
+  height: 1px; background: var(--orange); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+.project-item:hover::after { transform: scaleX(1); }
+.project-item:hover .project-num { color: var(--orange); }
+.project-item:hover .project-arrow { transform: translate(4px, -4px); }
+.project-item:first-child { border-top: 1px solid var(--border); }
+.project-item:first-child::before {
+  content: ''; position: absolute; left: 0; right: 0; top: -1px;
+  height: 1px; background: var(--orange); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+.project-item:first-child:hover::before { transform: scaleX(1); }
+
+.project-num {
+  font-family: var(--ff-display); font-size: 1.4rem; color: var(--subtle);
+  transition: color 0.3s ease;
+}
+.project-info { flex: 1; }
+.project-name {
+  font-family: var(--ff-display); font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  letter-spacing: 0.01em; margin-bottom: 6px;
+}
+.project-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.project-tag {
+  font-family: var(--ff-mono); font-size: 0.68rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 3px 8px; border: 1px solid var(--border); border-radius: 3px;
+}
+.project-metric {
+  font-family: var(--ff-mono); font-size: 0.78rem; color: var(--orange);
+  font-weight: 700; text-align: right; white-space: nowrap;
+}
+.project-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.project-arrow {
+  font-size: 1.2rem; color: var(--muted); transition: transform 0.3s ease, color 0.3s ease;
+}
+.project-item:hover .project-arrow { color: var(--orange); }
+
+/* Project expandable detail */
+.project-detail {
+  max-height: 0; overflow: hidden; transition: max-height 0.5s var(--ease), padding 0.4s ease;
+  background: var(--surface); padding: 0 80px 0 112px;
+  border-bottom: 1px solid transparent;
+}
+.project-detail.open {
+  max-height: 400px; padding: 28px 80px 28px 112px;
+  border-bottom-color: var(--border);
+}
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.detail-desc { font-size: 0.92rem; color: var(--muted); line-height: 1.75; }
+.detail-metrics { display: flex; flex-direction: column; gap: 10px; }
+.detail-metric-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0; border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+.detail-metric-row:last-child { border: none; }
+.detail-metric-key { color: var(--muted); font-family: var(--ff-mono); font-size: 0.75rem; }
+.detail-metric-val { color: var(--text); font-weight: 600; }
+.detail-actions { display: flex; gap: 12px; margin-top: 16px; }
+.detail-link {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 5px 12px; border-radius: 6px; font-family: var(--ff-mono);
-  font-size: 0.75rem; color: #94a3b8; background: transparent;
-  transition: all 0.2s ease; cursor: pointer;
+  font-family: var(--ff-mono); font-size: 0.75rem; color: var(--orange);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--orange); padding-bottom: 2px;
+  transition: opacity 0.2s ease;
 }
-.t-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
-.t-tab.active { color: var(--cyan); background: rgba(56,189,248,0.12); font-weight: 600; }
+.detail-link:hover { opacity: 0.7; }
 
-.terminal-body {
-  flex: 1; padding: 18px; font-family: var(--ff-mono); font-size: 0.84rem;
-  overflow-y: auto; color: #e2e8f0; line-height: 1.6;
+/* =======================================================================
+   LIVE SANDBOX — STARK, EDITORIAL
+   ======================================================================= */
+.sandbox-section {
+  background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
 }
-.terminal-body::-webkit-scrollbar { width: 6px; }
-.terminal-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+.sandbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+.sandbox-panel { background: var(--surface); padding: 48px; }
+.sandbox-panel-title {
+  font-family: var(--ff-display); font-size: 2rem; margin-bottom: 8px;
+}
+.sandbox-panel-sub {
+  font-family: var(--ff-mono); font-size: 0.72rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 36px;
+}
+.slider-row { margin-bottom: 24px; }
+.slider-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.slider-label { font-size: 0.85rem; color: var(--muted); }
+.slider-value { font-family: var(--ff-mono); font-size: 0.85rem; color: var(--text); font-weight: 700; }
+input[type="range"] {
+  -webkit-appearance: none; width: 100%; height: 2px;
+  background: var(--border); outline: none; border-radius: 1px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--orange); cursor: none; border: 2px solid #000;
+  box-shadow: 0 0 0 3px rgba(255,77,28,0.3);
+}
+.sandbox-result {
+  margin-top: 28px; padding: 24px; border: 1px solid var(--border); border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+.sandbox-result-label {
+  font-family: var(--ff-mono); font-size: 0.68rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;
+}
+.sandbox-result-value {
+  font-family: var(--ff-display); font-size: 1.6rem; color: var(--text);
+  transition: color 0.3s ease;
+}
+.sandbox-result-sub { font-size: 0.8rem; color: var(--muted); margin-top: 4px; font-family: var(--ff-mono); }
 
-/* Terminal Tab Panes */
-.tab-pane { display: none; }
-.tab-pane.active { display: block; animation: fadeIn 0.3s ease; }
-@keyframes fadeIn { from{ opacity: 0; transform: translateY(6px); } to{ opacity: 1; transform: translateY(0); } }
-
-/* CLI Terminal Interactive Pane */
-.cli-line { margin-bottom: 8px; word-break: break-word; }
-.cli-prompt { color: var(--cyan); font-weight: 700; margin-right: 6px; }
-.cli-output { color: #cbd5e1; margin-bottom: 12px; }
-.cli-input-form { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
-.cli-input {
-  flex: 1; background: transparent; border: none; outline: none;
-  font-family: var(--ff-mono); font-size: 0.85rem; color: #fff;
+/* =======================================================================
+   SPARK PIPELINE RUNNER
+   ======================================================================= */
+.spark-section { padding: 80px 0; border-bottom: 1px solid var(--border); }
+.spark-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
+.spark-stages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+.spark-stage { background: var(--surface); padding: 28px; }
+.spark-stage-label {
+  font-family: var(--ff-mono); font-size: 0.7rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;
 }
-
-/* Spark Pipeline Runner Pane */
-.spark-visualizer { display: flex; flex-direction: column; gap: 14px; }
-.spark-stage {
-  padding: 12px; border-radius: 8px; background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
+.spark-stage-name { font-size: 1rem; font-weight: 600; margin-bottom: 18px; }
+.spark-bar-track { height: 2px; background: rgba(255,255,255,0.06); position: relative; }
+.spark-bar-fill { height: 100%; width: 0%; background: var(--orange); transition: width 0.5s ease; }
+.spark-stage-status {
+  font-family: var(--ff-mono); font-size: 0.72rem; color: var(--muted);
+  margin-top: 10px; text-transform: uppercase; letter-spacing: 0.06em;
 }
-.spark-stage-header { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 6px; }
-.spark-bar-wrap { height: 7px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; }
-.spark-bar { height: 100%; width: 0%; background: var(--gradient-neon); border-radius: 4px; transition: width 0.4s ease; }
-
-/* Interactive Live ML Sandbox Tab */
-.ml-sandbox { display: flex; flex-direction: column; gap: 14px; }
-.sandbox-control { display: flex; flex-direction: column; gap: 4px; }
-.sandbox-label { display: flex; justify-content: space-between; font-size: 0.8rem; color: #94a3b8; }
-.sandbox-slider {
-  -webkit-appearance: none; appearance: none; width: 100%; height: 6px;
-  border-radius: 3px; background: rgba(255,255,255,0.15); outline: none;
+.spark-console {
+  background: #0D0D0D; border: 1px solid var(--border); border-radius: 6px;
+  padding: 20px; margin-top: 20px; font-family: var(--ff-mono); font-size: 0.78rem;
+  color: #5a5a5a; height: 100px; overflow-y: auto; line-height: 1.7;
 }
-.sandbox-slider::-webkit-slider-thumb {
-  -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%;
-  background: var(--cyan); cursor: pointer; box-shadow: 0 0 10px var(--cyan);
-}
-.ml-result-box {
-  padding: 12px; border-radius: 8px; background: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.25); text-align: center;
-}
-.ml-result-score { font-size: 1.25rem; font-weight: 800; color: #38bdf8; }
-
-/* ==========================================================================
-   7. INTERACTIVE ARCHITECTURE PIPELINE FLOWCHART
-   ========================================================================== */
-.pipeline-section { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.pipeline-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
-  position: relative; margin-top: 30px;
-}
-.pipeline-grid::before {
-  content: ''; position: absolute; top: 38px; left: 8%; right: 8%; height: 2px;
-  background: linear-gradient(90deg, var(--cyan), var(--purple), var(--emerald));
-  z-index: 0; opacity: 0.4;
-}
-.pipeline-node {
-  position: relative; z-index: 1; background: var(--bg-card);
-  border: 1px solid var(--border); border-radius: var(--radius-lg);
-  padding: 24px 20px; text-align: center; transition: all 0.3s var(--ease);
-  cursor: pointer;
-}
-.pipeline-node:hover {
-  transform: translateY(-6px); border-color: var(--cyan);
-  box-shadow: 0 15px 35px -10px rgba(56, 189, 248, 0.3);
-}
-.node-step {
-  width: 44px; height: 44px; border-radius: 50%; margin: 0 auto 16px;
-  background: rgba(56, 189, 248, 0.12); border: 2px solid var(--cyan);
-  display: grid; place-items: center; font-family: var(--ff-mono);
-  font-weight: 800; font-size: 1.1rem; color: var(--cyan);
-}
-.node-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
-.node-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
-.node-tag {
-  display: inline-block; margin-top: 12px; font-family: var(--ff-mono);
-  font-size: 0.72rem; padding: 3px 8px; border-radius: 4px;
-  background: rgba(255,255,255,0.06); color: var(--cyan);
-}
-
-/* ==========================================================================
-   8. FEATURED PROJECTS SHOWCASE (3D TILT & INTERACTIVE MODAL)
-   ========================================================================== */
-.projects-filter {
-  display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 40px;
-}
-.filter-btn {
-  padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.88rem;
-  font-weight: 600; color: var(--text-muted); background: var(--bg-card);
-  border: 1px solid var(--border); transition: all 0.2s ease;
-}
-.filter-btn:hover { color: var(--text-main); border-color: var(--cyan); }
-.filter-btn.active {
-  background: var(--gradient-neon); color: #000; font-weight: 700;
-  border-color: transparent; box-shadow: 0 4px 15px -3px rgba(56, 189, 248, 0.4);
-}
-
-.projects-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 28px;
-}
-.project-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-xl); padding: 30px;
-  display: flex; flex-direction: column; justify-content: space-between;
-  transition: transform 0.3s var(--ease), border-color 0.3s ease, box-shadow 0.3s ease;
-  position: relative; overflow: hidden;
-}
-.project-card::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(56, 189, 248, 0.12), transparent 60%);
-  pointer-events: none; opacity: 0; transition: opacity 0.3s ease;
-}
-.project-card:hover::before { opacity: 1; }
-.project-card:hover {
-  border-color: var(--border-cyan); transform: translateY(-6px);
-  box-shadow: 0 20px 40px -15px rgba(0,0,0,0.6), 0 0 25px -8px rgba(56, 189, 248, 0.2);
-}
-
-.card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
-.card-category {
-  font-family: var(--ff-mono); font-size: 0.72rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 10px;
-  border-radius: var(--radius-full); background: rgba(56, 189, 248, 0.1);
-  color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.2);
-}
-.card-metric-badge {
-  font-family: var(--ff-mono); font-size: 0.75rem; font-weight: 700;
-  color: var(--emerald); background: rgba(16, 185, 129, 0.12);
-  padding: 4px 10px; border-radius: var(--radius-full); border: 1px solid rgba(16, 185, 129, 0.25);
-}
-
-.project-title { font-size: 1.35rem; font-weight: 700; margin-bottom: 12px; line-height: 1.3; }
-.project-desc { color: var(--text-muted); font-size: 0.92rem; line-height: 1.65; margin-bottom: 20px; }
-
-/* Interactive Live Simulation inside card */
-.card-live-preview {
-  background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.06);
-  border-radius: var(--radius-md); padding: 14px; margin-bottom: 20px;
+.spark-console .log-success { color: var(--lime); }
+.spark-console .log-info { color: var(--orange); }
+.btn-run {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px; background: transparent; color: var(--orange);
+  border: 1px solid var(--orange); border-radius: 3px;
   font-family: var(--ff-mono); font-size: 0.78rem;
+  text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700;
+  transition: all 0.2s ease; cursor: none;
 }
-.preview-row { display: flex; justify-content: space-between; margin-bottom: 6px; }
-.preview-row:last-child { margin-bottom: 0; }
-.preview-highlight { color: var(--cyan); font-weight: 700; }
+.btn-run:hover { background: var(--orange); color: #000; }
+.btn-run:disabled { opacity: 0.5; }
 
-.tech-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
-.tech-tag {
-  font-family: var(--ff-mono); font-size: 0.72rem; padding: 4px 9px;
-  border-radius: 6px; background: rgba(255,255,255,0.04);
-  border: 1px solid var(--border); color: var(--text-muted);
+/* =======================================================================
+   SKILLS — COMPACT LIST FORMAT
+   ======================================================================= */
+.skills-columns { display: grid; grid-template-columns: repeat(2, 1fr); gap: 48px 80px; }
+.skills-category-title {
+  font-family: var(--ff-mono); font-size: 0.68rem; color: var(--orange);
+  text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 20px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--border);
 }
-
-.card-actions { display: flex; align-items: center; gap: 10px; padding-top: 18px; border-top: 1px solid var(--border); }
-
-/* ==========================================================================
-   9. INTERACTIVE SKILLS MATRIX & ECOSYSTEM
-   ========================================================================== */
-.skills-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
-.skill-group {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-xl); padding: 26px;
+.skill-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: all 0.2s ease;
 }
-.skill-group-title {
-  font-size: 1.15rem; font-weight: 700; margin-bottom: 20px;
-  display: flex; align-items: center; gap: 10px; color: var(--text-main);
-}
-.skill-group-title svg { color: var(--cyan); }
-
-.skill-list { display: flex; flex-direction: column; gap: 14px; }
-.skill-row { display: flex; flex-direction: column; gap: 6px; }
-.skill-info { display: flex; justify-content: space-between; font-size: 0.88rem; font-weight: 600; }
-.skill-meter-wrap { height: 7px; background: rgba(255,255,255,0.06); border-radius: var(--radius-full); overflow: hidden; }
-.skill-meter { height: 100%; border-radius: var(--radius-full); background: var(--gradient-neon); }
-
-/* ==========================================================================
-   10. VERIFIED CERTIFICATIONS & HACKATHONS
-   ========================================================================== */
-.certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-.cert-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 24px; display: flex; flex-direction: column;
-  justify-content: space-between; transition: all 0.25s ease;
-}
-.cert-card:hover {
-  border-color: var(--border-purple); transform: translateY(-4px);
-  box-shadow: 0 12px 30px -8px rgba(168, 85, 247, 0.25);
-}
-.cert-issuer {
-  font-family: var(--ff-mono); font-size: 0.75rem; font-weight: 700;
-  text-transform: uppercase; color: var(--purple); margin-bottom: 8px;
-}
-.cert-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; line-height: 1.35; }
-.cert-meta { font-size: 0.82rem; color: var(--text-muted); font-family: var(--ff-mono); margin-bottom: 16px; }
-.cert-badge-btn {
-  display: inline-flex; align-items: center; justify-content: space-between;
-  padding: 8px 14px; border-radius: var(--radius-md); background: rgba(168, 85, 247, 0.08);
-  border: 1px solid rgba(168, 85, 247, 0.25); color: var(--purple); font-size: 0.82rem;
-  font-family: var(--ff-mono); font-weight: 600; cursor: pointer; transition: all 0.2s ease;
-}
-.cert-badge-btn:hover { background: rgba(168, 85, 247, 0.18); color: #fff; }
-
-/* ==========================================================================
-   11. EDUCATION & LEADERSHIP TIMELINE
-   ========================================================================== */
-.timeline { position: relative; max-width: 800px; margin: 0 auto; padding-left: 30px; }
-.timeline::before {
-  content: ''; position: absolute; top: 0; bottom: 0; left: 6px; width: 2px;
-  background: linear-gradient(180deg, var(--cyan), var(--purple), var(--border));
-}
-.timeline-item { position: relative; margin-bottom: 36px; }
-.timeline-item:last-child { margin-bottom: 0; }
-.timeline-dot {
-  position: absolute; left: -30px; top: 4px; width: 14px; height: 14px;
-  border-radius: 50%; background: var(--bg-primary); border: 2px solid var(--cyan);
-  box-shadow: 0 0 10px var(--cyan);
-}
-.timeline-content {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 22px;
-}
-.timeline-date {
-  font-family: var(--ff-mono); font-size: 0.78rem; font-weight: 700;
-  color: var(--cyan); margin-bottom: 6px;
-}
-.timeline-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; }
-.timeline-sub { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px; }
-
-/* ==========================================================================
-   12. INTERACTIVE MODALS & TOAST NOTIFICATION
-   ========================================================================== */
-.modal-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(12px);
-  z-index: 1000; display: none; place-items: center; padding: 20px; opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.modal-overlay.active { display: grid; opacity: 1; }
-.modal-card {
-  background: var(--bg-secondary); border: 1px solid var(--border-light);
-  border-radius: var(--radius-xl); width: min(800px, 94vw); max-height: 88vh;
-  overflow-y: auto; padding: 34px; box-shadow: 0 25px 60px -15px rgba(0,0,0,0.9);
-  position: relative; animation: modalPop 0.3s var(--ease);
-}
-@keyframes modalPop { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-.modal-close {
-  position: absolute; top: 20px; right: 20px; width: 36px; height: 36px;
-  border-radius: 50%; background: rgba(255,255,255,0.06); border: 1px solid var(--border);
-  display: grid; place-items: center; color: var(--text-main); font-size: 1.2rem;
-  cursor: pointer; transition: all 0.2s ease;
-}
-.modal-close:hover { background: rgba(255,255,255,0.15); color: var(--rose); }
-
-/* Toast Notification */
-#toast {
-  position: fixed; bottom: 30px; right: 30px; z-index: 9999;
-  background: rgba(15, 23, 42, 0.95); border: 1px solid var(--cyan);
-  box-shadow: 0 10px 30px -5px rgba(56, 189, 248, 0.4);
-  color: #fff; padding: 12px 20px; border-radius: var(--radius-full);
-  font-family: var(--ff-mono); font-size: 0.85rem; font-weight: 600;
-  display: flex; align-items: center; gap: 10px;
-  transform: translateY(100px); opacity: 0; transition: all 0.3s var(--ease);
-  pointer-events: none;
-}
-#toast.show { transform: translateY(0); opacity: 1; }
-
-/* ==========================================================================
-   13. CONTACT & FOOTER SECTION
-   ========================================================================== */
-.contact-card {
-  background: var(--gradient-card); border: 1px solid var(--border-light);
-  border-radius: var(--radius-xl); padding: 50px 40px; text-align: center;
-  position: relative; overflow: hidden;
-}
-.contact-card::before {
-  content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
-  width: 500px; height: 300px; background: radial-gradient(circle, rgba(56,189,248,0.2) 0%, transparent 70%);
-  pointer-events: none;
-}
-.contact-channels {
-  display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; margin: 34px 0 24px;
-}
-.contact-pill {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 12px 22px; border-radius: var(--radius-full); background: var(--bg-card);
-  border: 1px solid var(--border); font-size: 0.95rem; font-weight: 600;
-  transition: all 0.25s ease; cursor: pointer;
-}
-.contact-pill:hover {
-  border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px);
-  box-shadow: 0 6px 20px -3px rgba(56, 189, 248, 0.3);
+.skill-item:hover { border-bottom-color: var(--orange); }
+.skill-item:hover .skill-item-name { color: var(--text); }
+.skill-item-name { font-size: 0.9rem; color: var(--muted); transition: color 0.2s; }
+.skill-item-level {
+  font-family: var(--ff-mono); font-size: 0.68rem; color: var(--subtle);
+  text-transform: uppercase;
 }
 
+/* =======================================================================
+   CERTIFICATIONS — HORIZONTAL PILLS LIST
+   ======================================================================= */
+.certs-list { display: flex; flex-direction: column; gap: 0; }
+.cert-row {
+  display: grid; grid-template-columns: 1fr auto auto;
+  align-items: center; gap: 24px;
+  padding: 22px 0; border-bottom: 1px solid var(--border);
+}
+.cert-name { font-size: 0.95rem; font-weight: 600; }
+.cert-issuer { font-family: var(--ff-mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; }
+.cert-date { font-family: var(--ff-mono); font-size: 0.72rem; color: var(--subtle); white-space: nowrap; }
+.cert-id-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px; border: 1px solid var(--border); border-radius: 3px;
+  font-family: var(--ff-mono); font-size: 0.68rem; color: var(--muted);
+  transition: all 0.2s ease; cursor: none; white-space: nowrap;
+}
+.cert-id-btn:hover { border-color: var(--orange); color: var(--orange); }
+
+/* =======================================================================
+   EDUCATION & TIMELINE
+   ======================================================================= */
+.edu-grid { display: grid; grid-template-columns: 220px 1fr; gap: 40px 60px; }
+.edu-year {
+  font-family: var(--ff-display); font-size: 2rem; color: rgba(255,255,255,0.15);
+  padding-top: 4px; line-height: 1;
+}
+.edu-content { padding: 0 0 48px; border-bottom: 1px solid var(--border); }
+.edu-content:last-of-type { border: none; padding-bottom: 0; }
+.edu-degree { font-size: 1.15rem; font-weight: 600; margin-bottom: 4px; }
+.edu-school { font-family: var(--ff-mono); font-size: 0.78rem; color: var(--orange); margin-bottom: 8px; }
+.edu-meta { font-size: 0.88rem; color: var(--muted); }
+.edu-score { font-family: var(--ff-mono); font-size: 0.78rem; color: var(--lime); margin-top: 6px; }
+
+/* =======================================================================
+   CONTACT — FULL WIDTH LOUD
+   ======================================================================= */
+.contact-section { padding: 120px 0; border-top: 1px solid var(--border); }
+.contact-heading {
+  font-family: var(--ff-display); font-size: clamp(64px, 9vw, 120px);
+  line-height: 0.95; margin-bottom: 50px;
+}
+.contact-heading span { color: var(--orange); }
+.contact-row {
+  display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 32px;
+}
+.contact-links { display: flex; flex-direction: column; gap: 10px; }
+.contact-link-item {
+  display: flex; align-items: center; gap: 16px; font-size: 1rem;
+  color: var(--muted); transition: color 0.2s ease; cursor: none;
+}
+.contact-link-item:hover { color: var(--text); }
+.contact-link-item .arrow { font-size: 0.9rem; transition: transform 0.2s ease; }
+.contact-link-item:hover .arrow { transform: translate(4px, -4px); color: var(--orange); }
+
+/* =======================================================================
+   FOOTER
+   ======================================================================= */
 footer {
-  padding: 40px 0; text-align: center; border-top: 1px solid var(--border);
-  color: var(--text-faint); font-size: 0.85rem;
+  padding: 24px 0; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
 }
+.footer-text { font-family: var(--ff-mono); font-size: 0.68rem; color: var(--subtle); }
+.footer-credit { font-family: var(--ff-mono); font-size: 0.68rem; color: var(--subtle); }
 
-/* ==========================================================================
-   14. RESPONSIVE DESIGN
-   ========================================================================== */
-@media (max-width: 900px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-  .pipeline-grid { grid-template-columns: 1fr 1fr; }
-  .pipeline-grid::before { display: none; }
-  .hero-stats { grid-template-columns: 1fr; }
+/* =======================================================================
+   MODAL
+   ======================================================================= */
+.modal {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 500;
+  display: none; place-items: center; padding: 20px;
+  backdrop-filter: blur(8px);
 }
-@media (max-width: 600px) {
-  .pipeline-grid { grid-template-columns: 1fr; }
-  .projects-grid { grid-template-columns: 1fr; }
-  .navbar-wrap { top: 10px; width: 96vw; }
-  .nav-link { padding: 6px 12px; font-size: 0.8rem; }
-  .contact-card { padding: 30px 20px; }
+.modal.open { display: grid; }
+.modal-box {
+  background: var(--surface); border: 1px solid var(--border-hi);
+  width: min(680px, 95vw); max-height: 85vh; overflow-y: auto;
+  padding: 40px; position: relative; border-radius: 8px;
+  animation: slideUp 0.3s var(--ease-spring);
+}
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity:1; transform: translateY(0); } }
+.modal-close-btn {
+  position: absolute; top: 20px; right: 20px;
+  font-family: var(--ff-mono); font-size: 0.75rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 6px 12px; border: 1px solid var(--border); border-radius: 3px;
+  transition: all 0.2s ease; cursor: none;
+}
+.modal-close-btn:hover { color: var(--text); border-color: var(--border-hi); }
+
+/* Toast */
+#toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: var(--card); border: 1px solid var(--orange);
+  padding: 10px 24px; border-radius: 3px;
+  font-family: var(--ff-mono); font-size: 0.78rem; color: var(--orange);
+  z-index: 9997; opacity: 0; transition: all 0.3s var(--ease);
+  pointer-events: none; white-space: nowrap;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero-bottom { grid-template-columns: 1fr; gap: 24px; }
+  .hero-actions { align-items: flex-start; }
+  .sidenav { display: none; }
+  .bento-card--span-4, .bento-card--span-5, .bento-card--span-7, .bento-card--span-8 { grid-column: span 12; }
+  .bento-card--span-6 { grid-column: span 12; }
+  .sandbox-grid, .spark-stages, .detail-grid, .skills-columns, .edu-grid { grid-template-columns: 1fr; }
+  .project-item { grid-template-columns: 48px 1fr; }
+  .project-right { grid-column: 2; }
+  .topbar { padding: 16px 20px; }
+  .topbar-right { gap: 10px; }
+  .contact-row { flex-direction: column; }
 }
 </style>
 </head>
-
 <body>
 
-<!-- Interactive Particle Constellation Canvas -->
-<canvas id="canvas-bg"></canvas>
-<div class="ambient-glow"></div>
-<div class="ambient-glow-bottom"></div>
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
 
-<!-- ==================== NAVIGATION ==================== -->
-<header class="navbar-wrap">
-  <nav class="navbar">
-    <a href="#hero" class="nav-brand">
-      <span>Rushit.dev</span>
-      <span class="brand-badge">ML &bull; PySpark</span>
+<!-- Toast -->
+<div id="toast" id="toast">Copied ✓</div>
+
+<!-- Side Nav Dots -->
+<nav class="sidenav" id="sidenav">
+  <div class="sidenav-dot active" data-label="Home" data-section="hero"></div>
+  <div class="sidenav-dot" data-label="Work" data-section="projects"></div>
+  <div class="sidenav-dot" data-label="Sandbox" data-section="sandbox"></div>
+  <div class="sidenav-dot" data-label="Skills" data-section="skills"></div>
+  <div class="sidenav-dot" data-label="Creds" data-section="certs"></div>
+  <div class="sidenav-dot" data-label="Education" data-section="education"></div>
+  <div class="sidenav-dot" data-label="Contact" data-section="contact"></div>
+</nav>
+
+<!-- Top Bar -->
+<header class="topbar">
+  <div class="topbar-brand">RK<span>.</span>dev — ML &amp; Big Data</div>
+  <div class="topbar-right">
+    <a href="#projects" class="topbar-link">Work</a>
+    <a href="#skills" class="topbar-link">Skills</a>
+    <a href="#contact" class="topbar-link">Contact</a>
+    <a href="Rushit_Khakhkhar_Resume.pdf" download class="topbar-cta">
+      Resume PDF ↓
     </a>
-
-    <div class="nav-links">
-      <a href="#projects" class="nav-link">Projects</a>
-      <a href="#pipeline" class="nav-link">Architecture</a>
-      <a href="#sandbox" class="nav-link">Live Sandbox</a>
-      <a href="#skills" class="nav-link">Skills</a>
-      <a href="#certs" class="nav-link">Credentials</a>
-      <a href="#education" class="nav-link">Education</a>
-      <a href="#contact" class="nav-link">Contact</a>
-    </div>
-
-    <div class="nav-actions">
-      <a href="Rushit_Khakhkhar_Resume.pdf" download="Rushit_Khakhkhar_Resume.pdf" class="btn btn-primary btn-sm" title="Download Resume PDF">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        <span>Resume PDF</span>
-      </a>
-      <button class="icon-btn" id="theme-toggle" title="Toggle Dark/Light Mode">
-        <svg id="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-      </button>
-    </div>
-  </nav>
+  </div>
 </header>
 
-<!-- ==================== HERO SECTION ==================== -->
-<section class="hero" id="hero">
-  <div class="wrap">
-    <div class="hero-grid">
-      
-      <!-- Hero Left Content -->
-      <div class="hero-content">
-        <div class="status-pill">
-          <span class="status-dot"></span>
-          <span>VIT Vellore &bull; B.Tech IT &bull; Open for ML / Data Engineering</span>
-        </div>
-
-        <h1 class="hero-title">
-          Architecting <span class="gradient-text">Big Data Pipelines</span> &amp; Intelligent ML Systems
-        </h1>
-
-        <p class="hero-subtitle">
-          Hi, I'm <strong>Rushit Khakhkhar</strong>. I engineer scalable distributed data workflows with <strong>Apache Spark (PySpark)</strong>, build predictive machine learning models (XGBoost, Random Forest, ARIMA), and deploy full-stack cloud applications with real-time interactivity.
-        </p>
-
-        <div class="hero-cta">
-          <a href="#projects" class="btn btn-primary">
-            <span>Explore Projects &amp; Demos</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-          <a href="#sandbox" class="btn btn-secondary">
-            <span>Live ML Sandbox</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-          </a>
-          <button class="btn btn-secondary" onclick="copyContact('rushitkhakhkharadvocate@gmail.com', 'Email copied to clipboard!')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            <span>Quick Connect</span>
-          </button>
-        </div>
-
-        <div class="hero-stats">
-          <div class="stat-item">
-            <span class="stat-num gradient-text">4.32M+</span>
-            <span class="stat-label">Spark Records Processed</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-num gradient-text">8.0 CGPA</span>
-            <span class="stat-label">VIT Vellore (IT '27)</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-num gradient-text">2x Oracle</span>
-            <span class="stat-label">GenAI Certified 2025</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hero Right: Dynamic Interactive Terminal Window -->
-      <div class="terminal-window">
-        <div class="terminal-header">
-          <div class="terminal-dots">
-            <span class="t-dot t-red"></span>
-            <span class="t-dot t-yellow"></span>
-            <span class="t-dot t-green"></span>
-          </div>
-          <div class="terminal-tabs">
-            <button class="t-tab active" data-tab="cli">⚡ terminal.sh</button>
-            <button class="t-tab" data-tab="spark">🌊 spark_pipeline.py</button>
-            <button class="t-tab" data-tab="ml">🧠 live_predict.ml</button>
-            <button class="t-tab" data-tab="json">📋 rushit.json</button>
-          </div>
-        </div>
-
-        <div class="terminal-body">
-          
-          <!-- TAB 1: Interactive CLI Terminal -->
-          <div class="tab-pane active" id="pane-cli">
-            <div id="cli-history">
-              <div class="cli-line">
-                <span class="cli-prompt">rushit@vit-cluster:~$</span>
-                <span class="cli-cmd">neofetch --portfolio</span>
-              </div>
-              <div class="cli-output" style="color: #38bdf8;">
-                =================================================<br>
-                &nbsp;Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rushit Khakhkhar (B.Tech IT @ VIT Vellore)<br>
-                &nbsp;Specialty:&nbsp;&nbsp;PySpark ETL, ML Pipelines, Full-Stack<br>
-                &nbsp;Big Data:&nbsp;&nbsp;&nbsp;4.32M Records &bull; Spike Anomaly Detection<br>
-                &nbsp;Cloud:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hugging Face &bull; Streamlit Cloud &bull; OCI<br>
-                &nbsp;Status:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ready for Engineering Opportunities<br>
-                =================================================
-              </div>
-              <div class="cli-line">
-                <span class="cli-prompt">rushit@vit-cluster:~$</span>
-                <span>Type <b>help</b> to list interactive commands (e.g. <b>skills</b>, <b>projects</b>, <b>run-etl</b>, <b>certs</b>, <b>contact</b>).</span>
-              </div>
-            </div>
-            
-            <form class="cli-input-form" id="cli-form" onsubmit="handleCliCommand(event)">
-              <span class="cli-prompt">rushit@vit-cluster:~$</span>
-              <input type="text" id="cli-input" class="cli-input" placeholder="Type a command and press Enter..." autocomplete="off">
-            </form>
-          </div>
-
-          <!-- TAB 2: Spark Pipeline Live Runner -->
-          <div class="tab-pane" id="pane-spark">
-            <div class="spark-visualizer">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="color: var(--cyan); font-weight: 700;">// Apache Spark 3.5 Distributed Pipeline</span>
-                <button class="btn btn-primary btn-sm" id="run-spark-btn" onclick="executeSparkSimulation()">
-                  <span>▶ Run 4.32M ETL</span>
-                </button>
-              </div>
-
-              <div class="spark-stage">
-                <div class="spark-stage-header">
-                  <span>Stage 1: Ingest Smart Meter Telemetry (CSV Partition)</span>
-                  <span id="s1-status">READY</span>
-                </div>
-                <div class="spark-bar-wrap"><div class="spark-bar" id="s1-bar"></div></div>
-              </div>
-
-              <div class="spark-stage">
-                <div class="spark-stage-header">
-                  <span>Stage 2: Spike-Ratio Anomaly Feature Extraction</span>
-                  <span id="s2-status">READY</span>
-                </div>
-                <div class="spark-bar-wrap"><div class="spark-bar" id="s2-bar"></div></div>
-              </div>
-
-              <div class="spark-stage">
-                <div class="spark-stage-header">
-                  <span>Stage 3: XGBoost Classifier Inference (10 Features)</span>
-                  <span id="s3-status">READY</span>
-                </div>
-                <div class="spark-bar-wrap"><div class="spark-bar" id="s3-bar"></div></div>
-              </div>
-
-              <div id="spark-console-log" style="font-size: 0.76rem; color: #94a3b8; background: rgba(0,0,0,0.4); padding: 8px; border-radius: 6px; height: 110px; overflow-y: auto;">
-                [INFO] PySpark Session Initialized. Click "Run 4.32M ETL" to benchmark partition throughput.
-              </div>
-            </div>
-          </div>
-
-          <!-- TAB 3: Live ML Sandbox inside Terminal -->
-          <div class="tab-pane" id="pane-ml">
-            <div class="ml-sandbox">
-              <span style="color: var(--cyan); font-weight: 700;">// Real-time Water Leakage Anomaly Model</span>
-              
-              <div class="sandbox-control">
-                <div class="sandbox-label">
-                  <span>Spike Ratio Multiplier:</span>
-                  <span id="hero-val-spike" class="preview-highlight">3.8x</span>
-                </div>
-                <input type="range" min="1.0" max="8.0" step="0.1" value="3.8" class="sandbox-slider" id="hero-slider-spike" oninput="updateHeroML()">
-              </div>
-
-              <div class="sandbox-control">
-                <div class="sandbox-label">
-                  <span>Pressure Drop (PSI):</span>
-                  <span id="hero-val-psi" class="preview-highlight">28 PSI</span>
-                </div>
-                <input type="range" min="0" max="60" step="1" value="28" class="sandbox-slider" id="hero-slider-psi" oninput="updateHeroML()">
-              </div>
-
-              <div class="ml-result-box" id="hero-ml-box">
-                <div style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8;">Predicted Severity Status</div>
-                <div class="ml-result-score" id="hero-ml-prediction">⚠️ WARNING: SUSPECTED LEAK</div>
-                <div style="font-size: 0.8rem; color: var(--text-muted);" id="hero-ml-conf">Model Confidence: 87.4% &bull; Spike Anomaly Flag: TRUE</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- TAB 4: JSON Developer Profile -->
-          <div class="tab-pane" id="pane-json">
-            <pre style="color: #a5f3fc; font-size: 0.78rem; line-height: 1.5;"><code id="json-code">{
-  "developer": "Rushit Khakhkhar",
-  "degree": "B.Tech Information Technology",
-  "university": "Vellore Institute of Technology, Vellore",
-  "cgpa": 8.0,
-  "graduation_year": 2027,
-  "certifications": [
-    "Oracle Cloud Infrastructure 2025 GenAI Professional",
-    "Oracle Fusion AI Agent Studio Foundations 2025",
-    "Simplilearn Introduction to Generative AI"
-  ],
-  "core_competencies": {
-    "big_data": ["Apache Spark (PySpark)", "ETL Pipelines", "4.32M+ Datasets"],
-    "machine_learning": ["XGBoost", "Random Forest", "ARIMA", "TensorFlow", "Scikit-learn"],
-    "web_dev": ["React.js", "Node.js", "Streamlit", "Three.js", "MongoDB", "MySQL"]
-  }
-}</code></pre>
-            <button class="btn btn-secondary btn-sm" style="margin-top: 10px;" onclick="copyContact(document.getElementById('json-code').innerText, 'JSON Profile copied!')">
-              <span>Copy JSON</span>
-            </button>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ==================== ARCHITECTURE PIPELINE SECTION ==================== -->
-<section class="pipeline-section" id="pipeline">
-  <div class="wrap">
-    <div class="sec-header">
-      <div class="sec-tag">End-to-End System Design</div>
-      <h2 class="sec-title">From Distributed Ingestion to <span class="gradient-text">Cloud Inference</span></h2>
-      <p class="sec-desc">A deep dive into how my data engineering pipelines transform raw multi-million record feeds into live predictive dashboards.</p>
+<!-- ============================
+     HERO
+     ============================ -->
+<section class="hero section" id="hero">
+  <div class="wrap" style="position: relative; z-index: 2;">
+    <div class="hero-eyebrow">
+      <span class="status-badge">
+        <span class="status-dot"></span> Available for Opportunities
+      </span>
+      &nbsp;— VIT Vellore, B.Tech IT
     </div>
 
-    <div class="pipeline-grid">
-      
-      <div class="pipeline-node" onclick="openPipelineDetail('ingest')">
-        <div class="node-step">01</div>
-        <h3 class="node-title">Raw Feeds &amp; Ingestion</h3>
-        <p class="node-desc">4.32M+ smart meter time-series packets &amp; 1.45M Chicago spatial crime records loaded into distributed partitions.</p>
-        <span class="node-tag">PySpark &bull; CSV &bull; REST</span>
-      </div>
+    <h1 class="hero-title">
+      <span class="hero-title-line">RUSHIT</span>
+      <span class="hero-title-line hero-title-line--accent">KHAKHKHAR</span>
+      <span class="hero-title-line" style="font-size: 0.55em; letter-spacing: 0.02em; color: rgba(255,255,255,0.5);">ML &amp; BIG DATA ENGINEER</span>
+    </h1>
 
-      <div class="pipeline-node" onclick="openPipelineDetail('transform')">
-        <div class="node-step">02</div>
-        <h3 class="node-title">ETL &amp; Feature Engine</h3>
-        <p class="node-desc">Automated spike-ratio calculation, rolling lag window aggregates, spatial KMeans risk centroid clustering.</p>
-        <span class="node-tag">PySpark SQL &bull; Pandas &bull; NumPy</span>
-      </div>
-
-      <div class="pipeline-node" onclick="openPipelineDetail('ml')">
-        <div class="node-step">03</div>
-        <h3 class="node-title">Ensemble Modeling</h3>
-        <p class="node-desc">Random Forest &amp; XGBoost classifiers for anomaly detection; ARIMA models with lag features (RMSE: 48.31).</p>
-        <span class="node-tag">Scikit-learn &bull; XGBoost &bull; ARIMA</span>
-      </div>
-
-      <div class="pipeline-node" onclick="openPipelineDetail('deploy')">
-        <div class="node-step">04</div>
-        <h3 class="node-title">Cloud Deployment</h3>
-        <p class="node-desc">Interactive multi-page dashboards deployed on Hugging Face Spaces &amp; Streamlit Cloud with What-If simulations.</p>
-        <span class="node-tag">Hugging Face &bull; Streamlit &bull; Plotly</span>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ==================== FEATURED PROJECTS SHOWCASE ==================== -->
-<section id="projects">
-  <div class="wrap">
-    <div class="sec-header">
-      <div class="sec-tag">Engineered Solutions</div>
-      <h2 class="sec-title">Featured <span class="gradient-text">Engineering Projects</span></h2>
-      <p class="sec-desc">Production-ready big data pipelines, predictive models, and full-stack interactive systems with public source code and live demos.</p>
-    </div>
-
-    <!-- Filter Buttons -->
-    <div class="projects-filter">
-      <button class="filter-btn active" data-filter="all">All Projects (4)</button>
-      <button class="filter-btn" data-filter="bigdata">Big Data &amp; Spark (2)</button>
-      <button class="filter-btn" data-filter="ml">Machine Learning (3)</button>
-      <button class="filter-btn" data-filter="web">Full-Stack &amp; 3D (2)</button>
-    </div>
-
-    <div class="projects-grid">
-      
-      <!-- Project 1: Smart Water Leakage Detection -->
-      <div class="project-card" data-category="bigdata ml" onmousemove="handleCardTilt(event, this)">
-        <div>
-          <div class="card-top">
-            <span class="card-category">Big Data &bull; PySpark &bull; ML</span>
-            <span class="card-metric-badge">4.32M+ Records</span>
-          </div>
-
-          <h3 class="project-title">Smart City Water Leakage Detection System</h3>
-          <p class="project-desc">
-            Engineered an Apache Spark big data pipeline analyzing 4.32M+ smart meter records. Developed spike-ratio anomaly detection classifying severity from Normal to Critical. Trained Random Forest and XGBoost classifiers on 10 behavioral features; deployed an 11-page interactive dashboard on Hugging Face Spaces.
-          </p>
-
-          <!-- Interactive mini telemetry simulation -->
-          <div class="card-live-preview">
-            <div class="preview-row">
-              <span>Pipeline Throughput:</span>
-              <span class="preview-highlight">4.32M records / batch</span>
-            </div>
-            <div class="preview-row">
-              <span>Severity Classifier:</span>
-              <span style="color: var(--emerald); font-weight: 700;">Normal &rarr; Critical</span>
-            </div>
-            <div class="preview-row">
-              <span>Cloud Target:</span>
-              <span class="preview-highlight">Hugging Face Spaces</span>
-            </div>
-          </div>
-
-          <div class="tech-stack">
-            <span class="tech-tag">Apache Spark</span>
-            <span class="tech-tag">PySpark</span>
-            <span class="tech-tag">Random Forest</span>
-            <span class="tech-tag">XGBoost</span>
-            <span class="tech-tag">Streamlit</span>
-            <span class="tech-tag">Plotly</span>
-            <span class="tech-tag">Hugging Face</span>
-          </div>
-        </div>
-
-        <div class="card-actions">
-          <a href="https://github.com/khakhkharrushit/Smart_WaterLeakage_Analysis_bigdata_analytics_machinelearning" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-            <span>GitHub</span>
-          </a>
-          <button class="btn btn-primary btn-sm" onclick="openModal('water')">
-            <span>Deep Dive</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- Project 2: Crime Intelligence System -->
-      <div class="project-card" data-category="bigdata ml" onmousemove="handleCardTilt(event, this)">
-        <div>
-          <div class="card-top">
-            <span class="card-category">Predictive Analytics &bull; Time-Series</span>
-            <span class="card-metric-badge">1.45M Records &bull; RMSE 48.31</span>
-          </div>
-
-          <h3 class="project-title">Crime Intelligence &amp; Predictive Forecasting</h3>
-          <p class="project-desc">
-            Processed ~1.45 million Chicago crime records, using KMeans clustering for High/Medium/Low spatial risk categorization and centroid hotspot mapping. Implemented ARIMA time-series forecasting and optimized a Random Forest regressor (RMSE: 48.31) using lag and rolling features.
-          </p>
-
-          <div class="card-live-preview">
-            <div class="preview-row">
-              <span>Spatial Risk Clustering:</span>
-              <span class="preview-highlight">KMeans (K=3 Hotspots)</span>
-            </div>
-            <div class="preview-row">
-              <span>Forecast Horizon:</span>
-              <span class="preview-highlight">ARIMA + Rolling Lag</span>
-            </div>
-            <div class="preview-row">
-              <span>Model Regressor RMSE:</span>
-              <span style="color: var(--emerald); font-weight: 700;">48.31</span>
-            </div>
-          </div>
-
-          <div class="tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Scikit-learn</span>
-            <span class="tech-tag">XGBoost</span>
-            <span class="tech-tag">ARIMA</span>
-            <span class="tech-tag">KMeans</span>
-            <span class="tech-tag">Streamlit</span>
-            <span class="tech-tag">Folium</span>
-          </div>
-        </div>
-
-        <div class="card-actions">
-          <a href="https://github.com/khakhkharrushit/crime-intelligence-system" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-            <span>GitHub</span>
-          </a>
-          <button class="btn btn-primary btn-sm" onclick="openModal('crime')">
-            <span>Deep Dive</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- Project 3: Facial Expression Detection -->
-      <div class="project-card" data-category="ml" onmousemove="handleCardTilt(event, this)">
-        <div>
-          <div class="card-top">
-            <span class="card-category">Deep Learning &bull; Computer Vision</span>
-            <span class="card-metric-badge">TensorFlow MLP</span>
-          </div>
-
-          <h3 class="project-title">Facial Expression Detection Deep Learning</h3>
-          <p class="project-desc">
-            Constructed a computer vision pipeline utilizing OpenCV for facial landmark extraction and ROI preprocessing. Architected and trained a custom Multi-Layer Perceptron (MLP) neural network in TensorFlow, achieving multi-class expression classification.
-          </p>
-
-          <div class="card-live-preview">
-            <div class="preview-row">
-              <span>Vision Preprocessing:</span>
-              <span class="preview-highlight">OpenCV ROI Extraction</span>
-            </div>
-            <div class="preview-row">
-              <span>Architecture:</span>
-              <span class="preview-highlight">Custom MLP in TensorFlow</span>
-            </div>
-            <div class="preview-row">
-              <span>Classes:</span>
-              <span style="color: var(--cyan);">Happy, Sad, Neutral, Angry, Surprise</span>
-            </div>
-          </div>
-
-          <div class="tech-stack">
-            <span class="tech-tag">TensorFlow</span>
-            <span class="tech-tag">OpenCV</span>
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">NumPy</span>
-            <span class="tech-tag">Deep Learning</span>
-          </div>
-        </div>
-
-        <div class="card-actions">
-          <button class="btn btn-primary btn-sm" onclick="openModal('facial')">
-            <span>Deep Dive</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- Project 4: Kaithi Ayurveda -->
-      <div class="project-card" data-category="web" onmousemove="handleCardTilt(event, this)">
-        <div>
-          <div class="card-top">
-            <span class="card-category">Full-Stack &bull; 3D WebGL</span>
-            <span class="card-metric-badge">Three.js 3D Viewer</span>
-          </div>
-
-          <h3 class="project-title">Kaithi Ayurveda — 3D E-Commerce Platform</h3>
-          <p class="project-desc">
-            Developed a modular Ayurveda e-commerce web platform in Streamlit featuring dynamic filtering and custom responsive CSS. Integrated an interactive in-browser 3D product visualization viewer using procedural Three.js geometry with GLB/GLTF model support.
-          </p>
-
-          <div class="card-live-preview">
-            <div class="preview-row">
-              <span>3D Graphics Engine:</span>
-              <span class="preview-highlight">Three.js WebGL Viewer</span>
-            </div>
-            <div class="preview-row">
-              <span>Format Support:</span>
-              <span class="preview-highlight">GLB / GLTF 3D Models</span>
-            </div>
-            <div class="preview-row">
-              <span>Platform:</span>
-              <span style="color: var(--emerald);">Interactive Streamlit App</span>
-            </div>
-          </div>
-
-          <div class="tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Streamlit</span>
-            <span class="tech-tag">Three.js</span>
-            <span class="tech-tag">JavaScript</span>
-            <span class="tech-tag">HTML5/CSS3</span>
-          </div>
-        </div>
-
-        <div class="card-actions">
-          <a href="https://github.com/khakhkharrushit/kaithi-ayurveda" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-            <span>GitHub</span>
-          </a>
-          <button class="btn btn-primary btn-sm" onclick="openModal('ayurveda')">
-            <span>Deep Dive</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ==================== DEDICATED LIVE ML SANDBOX SECTION ==================== -->
-<section id="sandbox" style="background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-  <div class="wrap">
-    <div class="sec-header">
-      <div class="sec-tag">Interactive Machine Learning Playground</div>
-      <h2 class="sec-title">Test Rushit's <span class="gradient-text">Models Live</span></h2>
-      <p class="sec-desc">Adjust the real-time parameter sliders below to witness how the anomaly classifier reacts dynamically to smart meter metrics and Chicago crime risk factors.</p>
-    </div>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 28px;">
-      
-      <!-- Sandbox Card 1: Water Leakage Classifier -->
-      <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 30px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-          <h3 style="font-size: 1.2rem; font-weight: 700;">💧 Smart Meter Anomaly Detector</h3>
-          <span class="card-category">XGBoost &bull; PySpark</span>
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: 18px; margin-bottom: 24px;">
-          <div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
-              <span>Flow Spike Ratio:</span>
-              <span id="sb-val-spike" style="color: var(--cyan); font-weight: 700;">2.4x baseline</span>
-            </div>
-            <input type="range" min="1.0" max="8.0" step="0.1" value="2.4" class="sandbox-slider" id="sb-spike" oninput="runDedicatedSandbox()">
-          </div>
-
-          <div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
-              <span>Pressure Differential (PSI):</span>
-              <span id="sb-val-psi" style="color: var(--cyan); font-weight: 700;">14 PSI drop</span>
-            </div>
-            <input type="range" min="0" max="60" step="1" value="14" class="sandbox-slider" id="sb-psi" oninput="runDedicatedSandbox()">
-          </div>
-
-          <div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
-              <span>Nighttime Idle Consumption:</span>
-              <span id="sb-val-night" style="color: var(--cyan); font-weight: 700;">18 L/hr</span>
-            </div>
-            <input type="range" min="0" max="100" step="1" value="18" class="sandbox-slider" id="sb-night" oninput="runDedicatedSandbox()">
-          </div>
-        </div>
-
-        <div id="sb-result-box" style="padding: 16px; border-radius: var(--radius-md); background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); text-align: center;">
-          <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em;">Estimated Classification</div>
-          <div id="sb-prediction-text" style="font-size: 1.3rem; font-weight: 800; color: var(--emerald); margin: 4px 0;">NORMAL CONSUMPTION PATTERN</div>
-          <div id="sb-conf-text" style="font-size: 0.84rem; color: var(--text-muted);">Anomaly Probability: 12.3% &bull; Health Index: 98/100</div>
-        </div>
-      </div>
-
-      <!-- Sandbox Card 2: Chicago Crime Risk Forecaster -->
-      <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 30px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-          <h3 style="font-size: 1.2rem; font-weight: 700;">🚨 Spatial Crime Risk Forecaster</h3>
-          <span class="card-category">ARIMA &bull; KMeans</span>
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: 18px; margin-bottom: 24px;">
-          <div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
-              <span>Time of Day:</span>
-              <span id="sb-val-hour" style="color: var(--purple); font-weight: 700;">22:00 (Night)</span>
-            </div>
-            <input type="range" min="0" max="23" step="1" value="22" class="sandbox-slider" id="sb-hour" oninput="runDedicatedCrimeSandbox()">
-          </div>
-
-          <div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
-              <span>Historical Rolling Incident Count:</span>
-              <span id="sb-val-history" style="color: var(--purple); font-weight: 700;">45 incidents / 7d</span>
-            </div>
-            <input type="range" min="5" max="120" step="1" value="45" class="sandbox-slider" id="sb-history" oninput="runDedicatedCrimeSandbox()">
-          </div>
-
-          <div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
-              <span>District Density:</span>
-              <span id="sb-val-district" style="color: var(--purple); font-weight: 700;">High Density Ward</span>
-            </div>
-            <input type="range" min="1" max="3" step="1" value="3" class="sandbox-slider" id="sb-district" oninput="runDedicatedCrimeSandbox()">
-          </div>
-        </div>
-
-        <div id="sb-crime-result-box" style="padding: 16px; border-radius: var(--radius-md); background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.3); text-align: center;">
-          <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em;">Hotspot Threat Level</div>
-          <div id="sb-crime-prediction-text" style="font-size: 1.3rem; font-weight: 800; color: var(--rose); margin: 4px 0;">HIGH RISK HOTSPOT ZONE</div>
-          <div id="sb-crime-conf-text" style="font-size: 0.84rem; color: var(--text-muted);">Forecasted Incidents: 72/week &bull; Regressor RMSE: 48.31</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ==================== SKILLS & TECH ECOSYSTEM ==================== -->
-<section id="skills">
-  <div class="wrap">
-    <div class="sec-header">
-      <div class="sec-tag">Technical Competency</div>
-      <h2 class="sec-title">Skills &amp; <span class="gradient-text">Core Competencies</span></h2>
-      <p class="sec-desc">A categorized overview of the languages, frameworks, distributed systems, and databases I leverage in production.</p>
-    </div>
-
-    <div class="skills-container">
-      
-      <!-- Languages -->
-      <div class="skill-group">
-        <h3 class="skill-group-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          <span>Programming Languages</span>
-        </h3>
-        <div class="skill-list">
-          <div class="skill-row">
-            <div class="skill-info"><span>Python (Data Science, PySpark, ML)</span><span>95%</span></div>
-            <div class="skill-meter-wrap"><div class="skill-meter" style="width: 95%;"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-info"><span>Java &amp; OOP</span><span>85%</span></div>
-            <div class="skill-meter-wrap"><div class="skill-meter" style="width: 85%;"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-info"><span>C / C++ (Data Structures &amp; Algorithms)</span><span>82%</span></div>
-            <div class="skill-meter-wrap"><div class="skill-meter" style="width: 82%;"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-info"><span>SQL (MySQL / Oracle SQL)</span><span>90%</span></div>
-            <div class="skill-meter-wrap"><div class="skill-meter" style="width: 90%;"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-info"><span>JavaScript / R / MATLAB</span><span>80%</span></div>
-            <div class="skill-meter-wrap"><div class="skill-meter" style="width: 80%;"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Big Data & Machine Learning -->
-      <div class="skill-group">
-        <h3 class="skill-group-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
-          <span>Big Data &amp; Machine Learning</span>
-        </h3>
-        <div class="skill-list">
-          <div class="skill-row">
-            <div class="skill-info"><span>Apache Spark (PySpark ETL Pipelines)</span><span>92%</span></div>
-            <div class="skill-meter-wrap"><div class="skill-meter" style="width: 92%;"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-info"><span>Scikit-learn &bull; XGBoost &bull; Random Forest</span><span>94%</span></div>
-            <div class="skill-meter-wrap"><div class="skill-meter" style="width: 94%;"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-info"><span>ARIMA &bull; Time-Series Forecasting</span><span>88%</span></div>
-            <div class="skill-meter-wrap"><div class="skill-meter" style="width: 88%;"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-info"><span>TensorFlow &bull; OpenCV (Deep Learning)</span><span>82%</span></div>
-            <div class="skill-meter-wrap"><div class="skill-meter" style="width: 82%;"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-info"><span>Pandas &bull; NumPy &bull; Plotly</span><span>96%</span></div>
-            <div class="skill-meter-wrap"><div class="skill-meter" style="width: 96%;"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Web & Tools -->
-      <div class="skill-group">
-        <h3 class="skill-group-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          <span>Web, Cloud &amp; Core CS</span>
-        </h3>
-        <div class="skill-list">
-          <div class="skill-row">
-            <div class="skill-info"><span>Streamlit &bull; Hugging Face Spaces</span><span>95%</span></div>
-            <div class="skill-meter-wrap"><div class="skill-meter" style="width: 95%;"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-info"><span>MERN Stack (React, Node.js, Express, MongoDB)</span><span>84%</span></div>
-            <div class="skill-meter-wrap"><div class="skill-meter" style="width: 84%;"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-info"><span>Three.js 3D WebGL Visualization</span><span>78%</span></div>
-            <div class="skill-meter-wrap"><div class="skill-meter" style="width: 78%;"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-info"><span>Data Structures &amp; Algorithms (DSA)</span><span>88%</span></div>
-            <div class="skill-meter-wrap"><div class="skill-meter" style="width: 88%;"></div></div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-info"><span>Git, GitHub, VS Code, Tableau</span><span>92%</span></div>
-            <div class="skill-meter-wrap"><div class="skill-meter" style="width: 92%;"></div></div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ==================== VERIFIED CERTIFICATIONS ==================== -->
-<section id="certs" style="background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-  <div class="wrap">
-    <div class="sec-header">
-      <div class="sec-tag">Verified Credentials</div>
-      <h2 class="sec-title">Industry Certifications &amp; <span class="gradient-text">Hackathons</span></h2>
-      <p class="sec-desc">Authenticated technical certifications from Oracle, Simplilearn, and collegiate hackathons.</p>
-    </div>
-
-    <div class="certs-grid">
-      
-      <!-- Oracle OCI GenAI -->
-      <div class="cert-card">
-        <div>
-          <span class="cert-issuer">Oracle University</span>
-          <h3 class="cert-title">Oracle Cloud Infrastructure 2025 Certified Generative AI Professional</h3>
-          <p class="cert-meta">Issued: Aug 2025 &bull; ID: 102415557OCI25GAIOCP</p>
-        </div>
-        <button class="cert-badge-btn" onclick="copyContact('102415557OCI25GAIOCP', 'Oracle Cert ID copied!')">
-          <span>ID: 102415557OCI25GAIOCP</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        </button>
-      </div>
-
-      <!-- Oracle AI Agent Studio -->
-      <div class="cert-card">
-        <div>
-          <span class="cert-issuer">Oracle University</span>
-          <h3 class="cert-title">Oracle Fusion AI Agent Studio Foundations Associate – Rel 1</h3>
-          <p class="cert-meta">Issued: Aug 2025 &bull; ID: 102415557OFAASOFA</p>
-        </div>
-        <button class="cert-badge-btn" onclick="copyContact('102415557OFAASOFA', 'Oracle Cert ID copied!')">
-          <span>ID: 102415557OFAASOFA</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        </button>
-      </div>
-
-      <!-- Simplilearn GenAI -->
-      <div class="cert-card">
-        <div>
-          <span class="cert-issuer">Simplilearn</span>
-          <h3 class="cert-title">Introduction to Generative AI</h3>
-          <p class="cert-meta">Issued: Aug 2025 &bull; Verification Code: 8849908</p>
-        </div>
-        <button class="cert-badge-btn" onclick="copyContact('8849908', 'Simplilearn Code copied!')">
-          <span>Code: 8849908</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        </button>
-      </div>
-
-      <!-- Hackathon VIT -->
-      <div class="cert-card">
-        <div>
-          <span class="cert-issuer">Office of Students' Welfare, VIT</span>
-          <h3 class="cert-title">Yantra Central Hackathon 2025</h3>
-          <p class="cert-meta">Issued: Feb 2025 &bull; VIT Vellore</p>
-        </div>
-        <div style="font-size: 0.8rem; color: var(--emerald); font-weight: 600;">
-          &bull; Certificate of Active Participation
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ==================== EDUCATION & LEADERSHIP ==================== -->
-<section id="education">
-  <div class="wrap">
-    <div class="sec-header">
-      <div class="sec-tag">Academic &amp; Leadership Track</div>
-      <h2 class="sec-title">Education &amp; <span class="gradient-text">Leadership</span></h2>
-      <p class="sec-desc">Academic excellence at Vellore Institute of Technology and active contribution to technical fests and hackathons.</p>
-    </div>
-
-    <div class="timeline">
-      
-      <!-- Timeline Item 1 -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-date">Aug 2023 – Present (Expected 2027)</div>
-          <h3 class="timeline-title">Vellore Institute of Technology — B.Tech Information Technology</h3>
-          <div class="timeline-sub">Vellore, Tamil Nadu &nbsp;|&nbsp; <strong>CGPA: 8.0 / 10.0</strong></div>
-          <p style="font-size: 0.88rem; color: var(--text-muted);">
-            Coursework: Data Structures &amp; Algorithms, Object-Oriented Programming, Database Management Systems, Operating Systems, Machine Learning, Big Data Analytics, Software Engineering.
-          </p>
-        </div>
-      </div>
-
-      <!-- Timeline Item 2: Leadership -->
-      <div class="timeline-item">
-        <div class="timeline-dot" style="border-color: var(--purple); box-shadow: 0 0 10px var(--purple);"></div>
-        <div class="timeline-content">
-          <div class="timeline-date">2024 – 2025</div>
-          <h3 class="timeline-title">Event Organizer &amp; Technical Volunteer</h3>
-          <div class="timeline-sub">Gravitas Tech Fest &amp; Genesis Hackathon &bull; VIT Vellore</div>
-          <p style="font-size: 0.88rem; color: var(--text-muted);">
-            &bull; <strong>Organizer, Genesis Hackathon:</strong> Spearheaded planning, team registrations, and technical coordination for a game development hackathon.<br>
-            &bull; <strong>Volunteer, Gravitas Tech Fest:</strong> Coordinated event logistics and guest speaker sessions at VIT's flagship international tech festival.
-          </p>
-        </div>
-      </div>
-
-      <!-- Timeline Item 3: Class XII -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-date">2023</div>
-          <h3 class="timeline-title">Cosmos Castle International School — CBSE Class XII (Science PCM)</h3>
-          <div class="timeline-sub">Ahmedabad, Gujarat &nbsp;|&nbsp; <strong>Score: 72%</strong></div>
-        </div>
-      </div>
-
-      <!-- Timeline Item 4: Class X -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-date">2021</div>
-          <h3 class="timeline-title">Ambuja Vidya Niketan — CBSE Class X</h3>
-          <div class="timeline-sub">Ambujanagar, Gujarat &nbsp;|&nbsp; <strong>Score: 92%</strong></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ==================== CONTACT & CONNECT ==================== -->
-<section id="contact">
-  <div class="wrap">
-    <div class="contact-card">
-      <div class="sec-tag" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12);">Get In Touch</div>
-      <h2 style="font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 16px;">
-        Let's Build Something <span class="gradient-text">Exceptional</span> Together
-      </h2>
-      <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.05rem;">
-        I am currently exploring Machine Learning, Big Data Engineering, and Full-Stack development internships and opportunities. Feel free to reach out directly.
+    <div class="hero-bottom">
+      <p class="hero-desc">
+        I architect <strong>distributed Spark pipelines</strong> processing millions of records, build ensemble ML systems, and ship full-stack cloud applications with real-world interactivity.
       </p>
 
-      <div class="contact-channels">
-        <button class="contact-pill" onclick="copyContact('rushitkhakhkharadvocate@gmail.com', 'Email copied to clipboard!')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          <span>rushitkhakhkharadvocate@gmail.com</span>
-        </button>
+      <div class="hero-stats-inline">
+        <div class="hero-stat">
+          <span class="hero-stat-num">4.32M</span>
+          <span class="hero-stat-label">Records / Pipeline</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">8.0</span>
+          <span class="hero-stat-label">CGPA @ VIT</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">2×</span>
+          <span class="hero-stat-label">Oracle GenAI</span>
+        </div>
+      </div>
 
-        <button class="contact-pill" onclick="copyContact('+919228207999', 'Phone number copied!')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          <span>+91-9228207999</span>
-        </button>
-
-        <a href="https://github.com/khakhkharrushit" target="_blank" rel="noopener noreferrer" class="contact-pill">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-          <span>github.com/khakhkharrushit</span>
+      <div class="hero-actions">
+        <a href="#projects" class="btn-primary">
+          View Projects ↓
         </a>
+        <button class="btn-ghost" onclick="showToast('rushitkhakhkharadvocate@gmail.com → click to open', 'email'); window.location.href='mailto:rushitkhakhkharadvocate@gmail.com'">
+          rushitkhakhkharadvocate@gmail.com ↗
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-bg-text">ENGINEER</div>
+</section>
+
+<!-- ============================
+     ABOUT — BENTO GRID
+     ============================ -->
+<section class="section" id="about" style="border-top: 1px solid var(--border);">
+  <div class="wrap">
+    <div class="section-label">01 — Profile Overview</div>
+    <div class="bento-grid">
+
+      <!-- Big identity card -->
+      <div class="bento-card bento-card--span-7 bento-card--accent">
+        <div class="bento-label">Core Identity</div>
+        <p style="font-size: 1.05rem; line-height: 1.75; color: #c0c0c0; max-width: 520px;">
+          Information Technology undergraduate at <span style="color:var(--text); font-weight:600;">VIT Vellore (2023→2027)</span> specializing in
+          <span style="color:var(--orange); font-weight:600;">PySpark ETL pipelines</span>, ensemble machine learning, and
+          <span style="color:var(--orange); font-weight:600;">cloud-deployed Streamlit dashboards</span>. Former game dev hackathon organizer and Gravitas Tech Fest volunteer.
+        </p>
+      </div>
+
+      <!-- CGPA stat -->
+      <div class="bento-card bento-card--span-5" style="text-align: right;">
+        <div class="bento-label">Academic Standing</div>
+        <div class="bento-value bento-value--lg" style="font-size: 5rem; line-height:1;">8.0<span style="font-size:0.4em; color:var(--muted);">/10</span></div>
+        <div style="font-family: var(--ff-mono); font-size: 0.72rem; color: var(--muted); margin-top: 6px;">CGPA • B.Tech IT • Expected 2027</div>
+      </div>
+
+      <!-- Mini terminal -->
+      <div class="bento-card bento-card--span-6" style="padding: 0;">
+        <div class="bento-terminal">
+          <div class="t-line t-line--prompt">▸ neofetch --rushit</div>
+          <div class="t-line t-line--out" style="margin-top: 6px;">Name ............. Rushit Khakhkhar</div>
+          <div class="t-line t-line--out">Location ......... VIT Vellore, TN</div>
+          <div class="t-line t-line--hi">Big Data ......... 4.32M Records (PySpark)</div>
+          <div class="t-line t-line--hi">ML Stack ......... XGBoost · RF · ARIMA · TF</div>
+          <div class="t-line t-line--out">Cloud ............ Hugging Face · Streamlit</div>
+          <div class="t-line t-line--out">Status ........... Seeking Internship/Roles</div>
+          <div style="margin-top: 8px;"><span class="t-line t-line--prompt">▸ </span><span class="t-cursor"></span></div>
+        </div>
+      </div>
+
+      <!-- Spark stat -->
+      <div class="bento-card bento-card--span-3">
+        <div class="bento-label">Largest Pipeline</div>
+        <div class="bento-value bento-value--orange">4.32M+</div>
+        <div style="font-size: 0.82rem; color: var(--muted); margin-top: 8px;">Smart meter records processed with Apache Spark</div>
+      </div>
+
+      <!-- Cert stat -->
+      <div class="bento-card bento-card--span-3">
+        <div class="bento-label">Certifications</div>
+        <div class="bento-value">3</div>
+        <div style="font-size: 0.82rem; color: var(--muted); margin-top: 8px;">Oracle (×2) + Simplilearn — All Aug 2025</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     PROJECTS
+     ============================ -->
+<section class="section" id="projects" style="border-top: 1px solid var(--border); position: relative; overflow: hidden;">
+  <div class="wrap">
+    <div class="section-label">02 — Engineering Work</div>
+    <div class="section-heading">Selected Projects</div>
+
+    <div class="project-list">
+
+      <!-- Project 1 -->
+      <div class="project-item" onclick="toggleProjectDetail('p1')">
+        <div class="project-num">01</div>
+        <div class="project-info">
+          <div class="project-name">Smart City Water Leakage Detection</div>
+          <div class="project-tags">
+            <span class="project-tag">Apache Spark</span>
+            <span class="project-tag">PySpark ETL</span>
+            <span class="project-tag">XGBoost</span>
+            <span class="project-tag">Random Forest</span>
+            <span class="project-tag">Hugging Face</span>
+          </div>
+        </div>
+        <div class="project-right">
+          <span class="project-metric">4.32M Records</span>
+          <span class="project-arrow">↗</span>
+        </div>
+      </div>
+      <div class="project-detail" id="p1">
+        <div class="detail-grid">
+          <div>
+            <p class="detail-desc">Engineered a distributed Apache Spark pipeline analyzing 4.32M+ smart meter records. Developed spike-ratio anomaly detection classifying severity from Normal → Critical. Trained Random Forest and XGBoost classifiers on 10 behavioral features; deployed an 11-page interactive dashboard on Hugging Face Spaces with What-If simulation capability.</p>
+            <div class="detail-actions">
+              <a href="https://github.com/khakhkharrushit/Smart_WaterLeakage_Analysis_bigdata_analytics_machinelearning" target="_blank" class="detail-link">GitHub Repository ↗</a>
+            </div>
+          </div>
+          <div class="detail-metrics">
+            <div class="detail-metric-row">
+              <span class="detail-metric-key">Dataset Size</span>
+              <span class="detail-metric-val">4,320,000+ Records</span>
+            </div>
+            <div class="detail-metric-row">
+              <span class="detail-metric-key">Feature Count</span>
+              <span class="detail-metric-val">10 behavioral rolling features</span>
+            </div>
+            <div class="detail-metric-row">
+              <span class="detail-metric-key">Models</span>
+              <span class="detail-metric-val">XGBoost + Random Forest</span>
+            </div>
+            <div class="detail-metric-row">
+              <span class="detail-metric-key">Dashboard</span>
+              <span class="detail-metric-val">11-page Streamlit (Hugging Face)</span>
+            </div>
+            <div class="detail-metric-row">
+              <span class="detail-metric-key">Severity Classes</span>
+              <span class="detail-metric-val">Normal / Warning / Critical</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-item" onclick="toggleProjectDetail('p2')">
+        <div class="project-num">02</div>
+        <div class="project-info">
+          <div class="project-name">Crime Intelligence & Predictive Forecasting</div>
+          <div class="project-tags">
+            <span class="project-tag">ARIMA</span>
+            <span class="project-tag">KMeans Clustering</span>
+            <span class="project-tag">Scikit-learn</span>
+            <span class="project-tag">Streamlit</span>
+            <span class="project-tag">Folium</span>
+          </div>
+        </div>
+        <div class="project-right">
+          <span class="project-metric">1.45M Records · RMSE 48.31</span>
+          <span class="project-arrow">↗</span>
+        </div>
+      </div>
+      <div class="project-detail" id="p2">
+        <div class="detail-grid">
+          <div>
+            <p class="detail-desc">Processed ~1.45M Chicago crime records using KMeans for High/Medium/Low spatial risk categorization with centroid hotspot mapping. Implemented ARIMA time-series forecasting and optimized Random Forest regressor (RMSE: 48.31) using lag and rolling features. Interactive multi-page Streamlit dashboard with Folium heatmaps.</p>
+            <div class="detail-actions">
+              <a href="https://github.com/khakhkharrushit/crime-intelligence-system" target="_blank" class="detail-link">GitHub Repository ↗</a>
+            </div>
+          </div>
+          <div class="detail-metrics">
+            <div class="detail-metric-row">
+              <span class="detail-metric-key">Dataset</span>
+              <span class="detail-metric-val">1.45M Chicago Crime Records</span>
+            </div>
+            <div class="detail-metric-row">
+              <span class="detail-metric-key">Clustering</span>
+              <span class="detail-metric-val">KMeans K=3 Spatial Hotspots</span>
+            </div>
+            <div class="detail-metric-row">
+              <span class="detail-metric-key">Forecasting</span>
+              <span class="detail-metric-val">ARIMA + Rolling Lag Features</span>
+            </div>
+            <div class="detail-metric-row">
+              <span class="detail-metric-key">Best RMSE</span>
+              <span class="detail-metric-val">48.31 (Random Forest Regressor)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-item" onclick="toggleProjectDetail('p3')">
+        <div class="project-num">03</div>
+        <div class="project-info">
+          <div class="project-name">Facial Expression Detection via Deep Learning</div>
+          <div class="project-tags">
+            <span class="project-tag">TensorFlow</span>
+            <span class="project-tag">OpenCV</span>
+            <span class="project-tag">Custom MLP</span>
+            <span class="project-tag">Computer Vision</span>
+          </div>
+        </div>
+        <div class="project-right">
+          <span class="project-metric">Multi-Class MLP</span>
+          <span class="project-arrow">↗</span>
+        </div>
+      </div>
+      <div class="project-detail" id="p3">
+        <div class="detail-grid">
+          <div>
+            <p class="detail-desc">Built a computer vision pipeline using OpenCV for facial landmark extraction and ROI preprocessing from image datasets. Architected and trained a custom Multi-Layer Perceptron (MLP) in TensorFlow for robust multi-class facial expression classification across 5 emotion categories.</p>
+          </div>
+          <div class="detail-metrics">
+            <div class="detail-metric-row"><span class="detail-metric-key">Preprocessing</span><span class="detail-metric-val">OpenCV ROI + Landmark Detection</span></div>
+            <div class="detail-metric-row"><span class="detail-metric-key">Architecture</span><span class="detail-metric-val">Custom MLP (TensorFlow)</span></div>
+            <div class="detail-metric-row"><span class="detail-metric-key">Classes</span><span class="detail-metric-val">Happy, Sad, Neutral, Angry, Surprise</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="project-item" onclick="toggleProjectDetail('p4')">
+        <div class="project-num">04</div>
+        <div class="project-info">
+          <div class="project-name">Kaithi Ayurveda — 3D E-Commerce Platform</div>
+          <div class="project-tags">
+            <span class="project-tag">Streamlit</span>
+            <span class="project-tag">Three.js WebGL</span>
+            <span class="project-tag">GLB/GLTF</span>
+            <span class="project-tag">JavaScript</span>
+          </div>
+        </div>
+        <div class="project-right">
+          <span class="project-metric">3D Product Viewer</span>
+          <span class="project-arrow">↗</span>
+        </div>
+      </div>
+      <div class="project-detail" id="p4">
+        <div class="detail-grid">
+          <div>
+            <p class="detail-desc">Modular Ayurveda e-commerce platform in Streamlit featuring dynamic search/filter and custom CSS. Integrated in-browser 3D product visualization using procedural Three.js WebGL geometry with full GLB/GLTF model support for 360° product inspection.</p>
+            <div class="detail-actions">
+              <a href="https://github.com/khakhkharrushit/kaithi-ayurveda" target="_blank" class="detail-link">GitHub Repository ↗</a>
+            </div>
+          </div>
+          <div class="detail-metrics">
+            <div class="detail-metric-row"><span class="detail-metric-key">3D Engine</span><span class="detail-metric-val">Three.js WebGL Renderer</span></div>
+            <div class="detail-metric-row"><span class="detail-metric-key">Format</span><span class="detail-metric-val">GLB / GLTF Models</span></div>
+            <div class="detail-metric-row"><span class="detail-metric-key">Backend</span><span class="detail-metric-val">Python + Streamlit</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     SPARK PIPELINE RUNNER
+     ============================ -->
+<section class="spark-section" id="pipeline">
+  <div class="wrap">
+    <div class="spark-header">
+      <div>
+        <div class="section-label">02.5 — Distributed Computing Demo</div>
+        <div class="section-heading" style="font-size: 2.5rem; margin-bottom: 0;">Apache Spark Pipeline Simulation</div>
+      </div>
+      <button class="btn-run" id="spark-btn" onclick="runSparkSim()">
+        ▶ Benchmark 4.32M Batch
+      </button>
+    </div>
+
+    <div class="spark-stages">
+      <div class="spark-stage">
+        <div class="spark-stage-label">Stage 01</div>
+        <div class="spark-stage-name">Smart Meter CSV Ingestion</div>
+        <div class="spark-bar-track"><div class="spark-bar-fill" id="sb1"></div></div>
+        <div class="spark-stage-status" id="ss1">IDLE — 4,320,000 Rows</div>
+      </div>
+      <div class="spark-stage">
+        <div class="spark-stage-label">Stage 02</div>
+        <div class="spark-stage-name">Spike-Ratio Feature Extraction</div>
+        <div class="spark-bar-track"><div class="spark-bar-fill" id="sb2"></div></div>
+        <div class="spark-stage-status" id="ss2">IDLE — 10 Behavioral Features</div>
+      </div>
+      <div class="spark-stage">
+        <div class="spark-stage-label">Stage 03</div>
+        <div class="spark-stage-name">XGBoost Ensemble Inference</div>
+        <div class="spark-bar-track"><div class="spark-bar-fill" id="sb3"></div></div>
+        <div class="spark-stage-status" id="ss3">IDLE — Severity Classification</div>
+      </div>
+    </div>
+
+    <div class="spark-console" id="spark-log">
+      <span class="log-info">// PySpark 3.5 Session ready. Click benchmark to simulate batch processing.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     LIVE ML SANDBOX
+     ============================ -->
+<section class="sandbox-section section" id="sandbox">
+  <div class="wrap">
+    <div class="section-label">03 — Interactive ML Playground</div>
+    <div class="section-heading" style="margin-bottom: 40px;">Test Models Live</div>
+  </div>
+  <div class="sandbox-grid">
+    
+    <!-- Water Leakage Sandbox -->
+    <div class="sandbox-panel">
+      <div class="sandbox-panel-title">💧 Water Leakage Classifier</div>
+      <div class="sandbox-panel-sub">XGBoost · PySpark · 4.32M Records</div>
+
+      <div class="slider-row">
+        <div class="slider-header">
+          <span class="slider-label">Flow Spike Ratio</span>
+          <span class="slider-value" id="v-spike">2.4× baseline</span>
+        </div>
+        <input type="range" min="1" max="8" step="0.1" value="2.4" id="s-spike" oninput="updateWaterSandbox()">
+      </div>
+      <div class="slider-row">
+        <div class="slider-header">
+          <span class="slider-label">Pressure Differential</span>
+          <span class="slider-value" id="v-psi">14 PSI drop</span>
+        </div>
+        <input type="range" min="0" max="60" step="1" value="14" id="s-psi" oninput="updateWaterSandbox()">
+      </div>
+      <div class="slider-row">
+        <div class="slider-header">
+          <span class="slider-label">Night Idle Consumption</span>
+          <span class="slider-value" id="v-night">18 L/hr</span>
+        </div>
+        <input type="range" min="0" max="100" step="1" value="18" id="s-night" oninput="updateWaterSandbox()">
+      </div>
+
+      <div class="sandbox-result" id="water-result">
+        <div class="sandbox-result-label">Classification Output</div>
+        <div class="sandbox-result-value" id="water-pred">NORMAL PATTERN</div>
+        <div class="sandbox-result-sub" id="water-conf">Anomaly probability: 12.3% · Health index: 98/100</div>
+      </div>
+    </div>
+
+    <!-- Crime Risk Sandbox -->
+    <div class="sandbox-panel">
+      <div class="sandbox-panel-title">🚨 Crime Risk Forecaster</div>
+      <div class="sandbox-panel-sub">ARIMA · KMeans · 1.45M Chicago Records</div>
+
+      <div class="slider-row">
+        <div class="slider-header">
+          <span class="slider-label">Hour of Day</span>
+          <span class="slider-value" id="v-hour">22:00 (Night)</span>
+        </div>
+        <input type="range" min="0" max="23" step="1" value="22" id="s-hour" oninput="updateCrimeSandbox()">
+      </div>
+      <div class="slider-row">
+        <div class="slider-header">
+          <span class="slider-label">7-Day Rolling Incidents</span>
+          <span class="slider-value" id="v-hist">45 incidents</span>
+        </div>
+        <input type="range" min="5" max="120" step="1" value="45" id="s-hist" oninput="updateCrimeSandbox()">
+      </div>
+      <div class="slider-row">
+        <div class="slider-header">
+          <span class="slider-label">District Density Level</span>
+          <span class="slider-value" id="v-dens">High Density</span>
+        </div>
+        <input type="range" min="1" max="3" step="1" value="3" id="s-dens" oninput="updateCrimeSandbox()">
+      </div>
+
+      <div class="sandbox-result" id="crime-result">
+        <div class="sandbox-result-label">Hotspot Threat Level</div>
+        <div class="sandbox-result-value" id="crime-pred">HIGH RISK ZONE</div>
+        <div class="sandbox-result-sub" id="crime-conf">Forecast: 72 incidents/week · RMSE: 48.31</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================
+     SKILLS
+     ============================ -->
+<section class="section" id="skills" style="border-top: 1px solid var(--border);">
+  <div class="wrap">
+    <div class="section-label">04 — Technical Competencies</div>
+    <div class="section-heading" style="margin-bottom: 56px;">Skills &amp; Stack</div>
+
+    <div class="skills-columns">
+      <div>
+        <div class="skills-category-title">Languages</div>
+        <div class="skill-item"><span class="skill-item-name">Python — Data Science, PySpark, ML</span><span class="skill-item-level">Expert</span></div>
+        <div class="skill-item"><span class="skill-item-name">SQL — MySQL / Oracle SQL</span><span class="skill-item-level">Advanced</span></div>
+        <div class="skill-item"><span class="skill-item-name">Java — OOP &amp; DSA</span><span class="skill-item-level">Advanced</span></div>
+        <div class="skill-item"><span class="skill-item-name">C / C++ — Algorithms</span><span class="skill-item-level">Proficient</span></div>
+        <div class="skill-item"><span class="skill-item-name">JavaScript / R / MATLAB</span><span class="skill-item-level">Proficient</span></div>
       </div>
 
       <div>
-        <a href="mailto:rushitkhakhkharadvocate@gmail.com" class="btn btn-primary">
-          <span>Open Email Client</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        </a>
+        <div class="skills-category-title">Big Data &amp; Machine Learning</div>
+        <div class="skill-item"><span class="skill-item-name">Apache Spark (PySpark) — ETL Pipelines</span><span class="skill-item-level">Expert</span></div>
+        <div class="skill-item"><span class="skill-item-name">Scikit-learn, XGBoost, Random Forest</span><span class="skill-item-level">Expert</span></div>
+        <div class="skill-item"><span class="skill-item-name">ARIMA — Time-Series Forecasting</span><span class="skill-item-level">Advanced</span></div>
+        <div class="skill-item"><span class="skill-item-name">TensorFlow, OpenCV — Deep Learning</span><span class="skill-item-level">Advanced</span></div>
+        <div class="skill-item"><span class="skill-item-name">Pandas, NumPy, Plotly, Matplotlib</span><span class="skill-item-level">Expert</span></div>
+      </div>
+
+      <div>
+        <div class="skills-category-title">Web &amp; Cloud Platforms</div>
+        <div class="skill-item"><span class="skill-item-name">Streamlit — Multi-Page Dashboards</span><span class="skill-item-level">Expert</span></div>
+        <div class="skill-item"><span class="skill-item-name">Hugging Face Spaces — Model Deployment</span><span class="skill-item-level">Advanced</span></div>
+        <div class="skill-item"><span class="skill-item-name">MERN Stack — React, Node.js, Express, MongoDB</span><span class="skill-item-level">Advanced</span></div>
+        <div class="skill-item"><span class="skill-item-name">Three.js — 3D WebGL Rendering</span><span class="skill-item-level">Proficient</span></div>
+        <div class="skill-item"><span class="skill-item-name">MySQL / Oracle SQL / MongoDB</span><span class="skill-item-level">Advanced</span></div>
+      </div>
+
+      <div>
+        <div class="skills-category-title">Tools &amp; Core CS</div>
+        <div class="skill-item"><span class="skill-item-name">Git, GitHub, VS Code, Jupyter</span><span class="skill-item-level">Expert</span></div>
+        <div class="skill-item"><span class="skill-item-name">Tableau — Data Visualization</span><span class="skill-item-level">Proficient</span></div>
+        <div class="skill-item"><span class="skill-item-name">Data Structures &amp; Algorithms (DSA)</span><span class="skill-item-level">Advanced</span></div>
+        <div class="skill-item"><span class="skill-item-name">OOP, DBMS, SDLC, OS</span><span class="skill-item-level">Advanced</span></div>
+        <div class="skill-item"><span class="skill-item-name">Oracle Cloud Infrastructure (OCI)</span><span class="skill-item-level">Certified</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== FOOTER ==================== -->
-<footer>
+<!-- ============================
+     CERTIFICATIONS
+     ============================ -->
+<section class="section" id="certs" style="background: var(--surface); border-top: 1px solid var(--border);">
   <div class="wrap">
-    <p>&copy; 2025–2026 Rushit Khakhkhar. Built with high-performance Vanilla Web Technologies. Hosted on GitHub Pages.</p>
+    <div class="section-label">05 — Credentials</div>
+    <div class="section-heading" style="margin-bottom: 48px;">Certifications &amp; Achievements</div>
+
+    <div class="certs-list">
+      <div class="cert-row">
+        <div>
+          <div class="cert-name">Oracle Cloud Infrastructure 2025 Generative AI Professional</div>
+          <div class="cert-issuer">Oracle University</div>
+        </div>
+        <div class="cert-date">Aug 2025</div>
+        <button class="cert-id-btn" onclick="copyText('102415557OCI25GAIOCP', 'Oracle Cert ID copied!')">
+          ID: 102415557OCI25GAIOCP ⎘
+        </button>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-name">Oracle Fusion AI Agent Studio Foundations Associate – Rel 1</div>
+          <div class="cert-issuer">Oracle University</div>
+        </div>
+        <div class="cert-date">Aug 2025</div>
+        <button class="cert-id-btn" onclick="copyText('102415557OFAASOFA', 'Oracle Cert ID copied!')">
+          ID: 102415557OFAASOFA ⎘
+        </button>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-name">Introduction to Generative AI</div>
+          <div class="cert-issuer">Simplilearn</div>
+        </div>
+        <div class="cert-date">Aug 2025</div>
+        <button class="cert-id-btn" onclick="copyText('8849908', 'Verification code copied!')">
+          Code: 8849908 ⎘
+        </button>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-name">Yantra Central Hackathon 2025 — Certificate of Participation</div>
+          <div class="cert-issuer">Office of Students' Welfare, VIT Vellore</div>
+        </div>
+        <div class="cert-date">Feb 2025</div>
+        <span style="font-family: var(--ff-mono); font-size: 0.68rem; color: var(--subtle);">VERIFIED</span>
+      </div>
+    </div>
+
+    <!-- Achievements -->
+    <div style="margin-top: 60px; padding-top: 48px; border-top: 1px solid var(--border);">
+      <div class="section-label" style="margin-bottom: 28px;">Leadership &amp; Activities</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+        <div style="padding: 24px; border: 1px solid var(--border); border-radius: 8px;">
+          <div style="font-family: var(--ff-mono); font-size: 0.68rem; color: var(--orange); text-transform: uppercase; margin-bottom: 10px;">Organizer</div>
+          <div style="font-weight: 600; margin-bottom: 6px;">Genesis Hackathon on Game Development</div>
+          <div style="font-size: 0.88rem; color: var(--muted);">Led planning, team registrations, and technical coordination for VIT's game development hackathon.</div>
+        </div>
+        <div style="padding: 24px; border: 1px solid var(--border); border-radius: 8px;">
+          <div style="font-family: var(--ff-mono); font-size: 0.68rem; color: var(--orange); text-transform: uppercase; margin-bottom: 10px;">Volunteer</div>
+          <div style="font-weight: 600; margin-bottom: 6px;">Gravitas Tech Fest, VIT Vellore</div>
+          <div style="font-size: 0.88rem; color: var(--muted);">Coordinated event logistics and sessions at VIT's flagship international technical festival.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     EDUCATION
+     ============================ -->
+<section class="section" id="education" style="border-top: 1px solid var(--border);">
+  <div class="wrap">
+    <div class="section-label">06 — Academic Path</div>
+    <div class="section-heading" style="margin-bottom: 56px;">Education</div>
+
+    <div class="edu-grid">
+      <div class="edu-year">2027</div>
+      <div class="edu-content">
+        <div class="edu-degree">B.Tech Information Technology</div>
+        <div class="edu-school">Vellore Institute of Technology — Vellore, Tamil Nadu</div>
+        <div class="edu-meta">Aug 2023 – Present (Expected 2027)</div>
+        <div class="edu-score">CGPA: 8.0 / 10.0</div>
+        <div style="font-size: 0.85rem; color: var(--muted); margin-top: 10px; line-height: 1.7;">
+          Coursework: Data Structures &amp; Algorithms, OOP, DBMS, OS, Machine Learning, Big Data Analytics, Software Engineering, Web Technologies.
+        </div>
+      </div>
+
+      <div class="edu-year">2023</div>
+      <div class="edu-content">
+        <div class="edu-degree">CBSE Class XII — Science (PCM)</div>
+        <div class="edu-school">Cosmos Castle International School — Ahmedabad, Gujarat</div>
+        <div class="edu-meta">Completed 2023</div>
+        <div class="edu-score">Score: 72%</div>
+      </div>
+
+      <div class="edu-year">2021</div>
+      <div class="edu-content" style="border: none; padding-bottom: 0;">
+        <div class="edu-degree">CBSE Class X</div>
+        <div class="edu-school">Ambuja Vidya Niketan — Ambujanagar, Gujarat</div>
+        <div class="edu-meta">Completed 2021</div>
+        <div class="edu-score">Score: 92%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     CONTACT
+     ============================ -->
+<section class="contact-section" id="contact">
+  <div class="wrap">
+    <h2 class="contact-heading">
+      LET'S BUILD<br>
+      SOMETHING <span>BIG.</span>
+    </h2>
+
+    <div class="contact-row">
+      <div class="contact-links">
+        <button class="contact-link-item" onclick="copyText('rushitkhakhkharadvocate@gmail.com', 'Email copied!')">
+          <span style="font-family: var(--ff-mono); font-size: 0.72rem; color: var(--muted); width: 64px; text-align: left;">EMAIL</span>
+          <span>rushitkhakhkharadvocate@gmail.com</span>
+          <span class="arrow">↗</span>
+        </button>
+        <button class="contact-link-item" onclick="copyText('+919228207999', 'Phone number copied!')">
+          <span style="font-family: var(--ff-mono); font-size: 0.72rem; color: var(--muted); width: 64px; text-align: left;">PHONE</span>
+          <span>+91-9228207999</span>
+          <span class="arrow">↗</span>
+        </button>
+        <a class="contact-link-item" href="https://github.com/khakhkharrushit" target="_blank" rel="noopener noreferrer">
+          <span style="font-family: var(--ff-mono); font-size: 0.72rem; color: var(--muted); width: 64px; text-align: left;">GITHUB</span>
+          <span>github.com/khakhkharrushit</span>
+          <span class="arrow">↗</span>
+        </a>
+      </div>
+
+      <div style="text-align: right;">
+        <a href="mailto:rushitkhakhkharadvocate@gmail.com" class="btn-primary" style="font-size: 1rem; padding: 18px 40px;">
+          Send Email ↗
+        </a>
+        <div style="font-family: var(--ff-mono); font-size: 0.7rem; color: var(--muted); margin-top: 12px;">
+          Exploring ML · Big Data · Full-Stack roles &amp; internships
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 0 4vw;">
+    <span class="footer-text">© 2025–2026 Rushit Khakhkhar</span>
+    <span class="footer-credit">Hosted on GitHub Pages · khakhkharrushit.github.io/resume</span>
   </div>
 </footer>
 
-<!-- ==================== INTERACTIVE DEEP DIVE MODAL ==================== -->
-<div class="modal-overlay" id="project-modal" onclick="closeModalOnOverlay(event)">
-  <div class="modal-card">
-    <button class="modal-close" onclick="closeModal()">&times;</button>
-    <div id="modal-content">
-      <!-- Injected via JavaScript -->
-    </div>
-  </div>
-</div>
-
-<!-- Toast Container -->
-<div id="toast">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-  <span id="toast-text">Copied to clipboard!</span>
-</div>
-
-<!-- ==========================================================================
-   JAVASCRIPT: INTERACTIVE SYSTEMS, TERMINAL, CANVAS, ML SANDBOX
-   ========================================================================== -->
+<!-- ============================
+     JAVASCRIPT
+     ============================ -->
 <script>
-/* ==================== 1. CANVAS PARTICLE CONSTELLATION ==================== */
-const canvas = document.getElementById('canvas-bg');
-const ctx = canvas.getContext('2d');
-let particles = [];
-let mouse = { x: null, y: null, radius: 140 };
-let isScrolling = false;
-let scrollTimeout;
+/* ---- Custom Cursor ---- */
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0;
 
-function initCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  particles = [];
-  const particleCount = Math.min(Math.floor((canvas.width * canvas.height) / 16000), 75);
-  
-  for (let i = 0; i < particleCount; i++) {
-    particles.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.7,
-      vy: (Math.random() - 0.5) * 0.7,
-      size: Math.random() * 2 + 1,
-      color: Math.random() > 0.5 ? 'rgba(56, 189, 248, ' : 'rgba(168, 85, 247, '
-    });
-  }
-}
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  ring.style.left = mx + 'px'; ring.style.top = my + 'px';
+});
+document.addEventListener('mousedown', () => document.body.classList.add('cursor-click'));
+document.addEventListener('mouseup', () => document.body.classList.remove('cursor-click'));
 
-function animateParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-  if (!isScrolling) {
-    for (let i = 0; i < particles.length; i++) {
-      let p = particles[i];
-      p.x += p.vx;
-      p.y += p.vy;
+document.querySelectorAll('a, button, [onclick], input, select').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
 
-      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-      // Mouse attraction / interaction
-      if (mouse.x !== null && mouse.y !== null) {
-        let dx = mouse.x - p.x;
-        let dy = mouse.y - p.y;
-        let dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < mouse.radius) {
-          p.x += dx * 0.015;
-          p.y += dy * 0.015;
-        }
-      }
-
-      ctx.fillStyle = p.color + '0.7)';
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Connect near particles
-      for (let j = i + 1; j < particles.length; j++) {
-        let p2 = particles[j];
-        let dx = p.x - p2.x;
-        let dy = p.y - p2.y;
-        let dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 110) {
-          ctx.strokeStyle = `rgba(56, 189, 248, ${0.18 * (1 - dist / 110)})`;
-          ctx.lineWidth = 0.8;
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(p2.x, p2.y);
-          ctx.stroke();
-        }
-      }
+/* ---- Side nav highlight ---- */
+const sections = document.querySelectorAll('section[id]');
+const dots = document.querySelectorAll('.sidenav-dot');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      dots.forEach(d => d.classList.remove('active'));
+      const active = document.querySelector(`.sidenav-dot[data-section="${id}"]`);
+      if (active) active.classList.add('active');
     }
-  }
-
-  requestAnimationFrame(animateParticles);
-}
-
-window.addEventListener('resize', initCanvas);
-window.addEventListener('mousemove', (e) => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-});
-window.addEventListener('scroll', () => {
-  isScrolling = true;
-  clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(() => { isScrolling = false; }, 60);
-}, { passive: true });
-
-initCanvas();
-animateParticles();
-
-/* ==================== 2. THEME TOGGLE ==================== */
-const themeToggleBtn = document.getElementById('theme-toggle');
-themeToggleBtn.addEventListener('click', () => {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-  document.documentElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('rushit_theme', newTheme);
-});
-
-// Load saved theme
-const savedTheme = localStorage.getItem('rushit_theme');
-if (savedTheme) {
-  document.documentElement.setAttribute('data-theme', savedTheme);
-}
-
-/* ==================== 3. TERMINAL TABS SYSTEM ==================== */
-const terminalTabs = document.querySelectorAll('.t-tab');
-terminalTabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    terminalTabs.forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-    
-    tab.classList.add('active');
-    const targetId = `pane-${tab.getAttribute('data-tab')}`;
-    const targetPane = document.getElementById(targetId);
-    if (targetPane) targetPane.classList.add('active');
   });
-});
+}, { threshold: 0.4 });
+sections.forEach(s => io.observe(s));
 
-/* ==================== 4. CLI INTERACTIVE SHELL ==================== */
-const cliHistory = document.getElementById('cli-history');
-const cliInput = document.getElementById('cli-input');
-
-const cliCommands = {
-  help: () => `
-    Available interactive commands:<br>
-    &bull; <b style="color:var(--cyan)">skills</b>: View core skill breakdown &amp; stack<br>
-    &bull; <b style="color:var(--cyan)">projects</b>: View featured repositories &amp; records<br>
-    &bull; <b style="color:var(--cyan)">run-etl</b>: Launch Apache Spark 4.32M simulation<br>
-    &bull; <b style="color:var(--cyan)">certs</b>: View Oracle &amp; Simplilearn verification IDs<br>
-    &bull; <b style="color:var(--cyan)">contact</b>: Display direct phone &amp; email<br>
-    &bull; <b style="color:var(--cyan)">clear</b>: Clear terminal screen<br>
-    &bull; <b style="color:var(--cyan)">theme</b>: Toggle Dark / Light mode<br>
-    &bull; <b style="color:var(--cyan)">neofetch</b>: Display developer profile summary
-  `,
-  skills: () => `
-    [SKILLS ECOSYSTEM]<br>
-    - Big Data:&nbsp;&nbsp;&nbsp;&nbsp;Apache Spark (PySpark), Distributed ETL, 4.32M Records<br>
-    - ML / DL:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scikit-learn, XGBoost, Random Forest, ARIMA, TensorFlow, OpenCV<br>
-    - Languages:&nbsp;&nbsp;&nbsp;Python, Java, C, C++, JavaScript, SQL, R<br>
-    - Web / Cloud:&nbsp;Streamlit, React, Node.js, Three.js, Hugging Face
-  `,
-  projects: () => `
-    [FEATURED PROJECTS]<br>
-    1. Smart City Water Leakage &mdash; 4.32M Spark Records &bull; Hugging Face Spaces<br>
-    2. Crime Intelligence System &mdash; 1.45M Chicago Records &bull; ARIMA (RMSE 48.31)<br>
-    3. Facial Expression Detection &mdash; TensorFlow Deep Learning MLP<br>
-    4. Kaithi Ayurveda &mdash; Streamlit E-Commerce with Three.js 3D Viewer
-  `,
-  certs: () => `
-    [AUTHENTICATED CERTIFICATIONS]<br>
-    &bull; Oracle Cloud Infrastructure 2025 GenAI Professional (102415557OCI25GAIOCP)<br>
-    &bull; Oracle Fusion AI Agent Studio Foundations 2025 (102415557OFAASOFA)<br>
-    &bull; Simplilearn Introduction to Generative AI (Code: 8849908)<br>
-    &bull; Yantra Central Hackathon 2025 (VIT Vellore)
-  `,
-  contact: () => `
-    [CONTACT CHANNELS]<br>
-    &bull; Email:&nbsp;&nbsp;<a href="mailto:rushitkhakhkharadvocate@gmail.com" style="color:var(--cyan)">rushitkhakhkharadvocate@gmail.com</a><br>
-    &bull; Phone:&nbsp;&nbsp;+91-9228207999<br>
-    &bull; GitHub: <a href="https://github.com/khakhkharrushit" target="_blank" style="color:var(--cyan)">github.com/khakhkharrushit</a>
-  `,
-  "run-etl": () => {
-    setTimeout(() => {
-      document.querySelector('[data-tab="spark"]').click();
-      executeSparkSimulation();
-    }, 300);
-    return "Switching to Spark Visualizer and initiating distributed batch...";
-  },
-  neofetch: () => `
-    Rushit Khakhkhar &bull; B.Tech IT (VIT Vellore '27) &bull; CGPA: 8.0<br>
-    4.32M Spark Records &bull; 2x Oracle GenAI Certified &bull; Full-Stack ML
-  `,
-  theme: () => {
-    themeToggleBtn.click();
-    return "Toggled visual theme.";
-  }
-};
-
-function handleCliCommand(e) {
-  e.preventDefault();
-  const rawCmd = cliInput.value.trim();
-  if (!rawCmd) return;
-
-  const cmd = rawCmd.toLowerCase();
-  cliInput.value = '';
-
-  const userLine = document.createElement('div');
-  userLine.className = 'cli-line';
-  userLine.innerHTML = `<span class="cli-prompt">rushit@vit-cluster:~$</span> <span>${rawCmd}</span>`;
-  cliHistory.appendChild(userLine);
-
-  if (cmd === 'clear') {
-    cliHistory.innerHTML = '';
-    return;
-  }
-
-  const outLine = document.createElement('div');
-  outLine.className = 'cli-output';
-
-  if (cliCommands[cmd]) {
-    outLine.innerHTML = cliCommands[cmd]();
-  } else {
-    outLine.innerHTML = `command not found: <b>${rawCmd}</b>. Type <b>help</b> for a list of commands.`;
-  }
-
-  cliHistory.appendChild(outLine);
-  cliHistory.scrollTop = cliHistory.scrollHeight;
+/* ---- Project Detail Toggle ---- */
+function toggleProjectDetail(id) {
+  const detail = document.getElementById(id);
+  const isOpen = detail.classList.contains('open');
+  document.querySelectorAll('.project-detail').forEach(d => d.classList.remove('open'));
+  if (!isOpen) detail.classList.add('open');
 }
 
-/* ==================== 5. SPARK ETL SIMULATION ==================== */
-let isSparkRunning = false;
-function executeSparkSimulation() {
-  if (isSparkRunning) return;
-  isSparkRunning = true;
-
-  const btn = document.getElementById('run-spark-btn');
-  const log = document.getElementById('spark-console-log');
-  const s1Bar = document.getElementById('s1-bar');
-  const s2Bar = document.getElementById('s2-bar');
-  const s3Bar = document.getElementById('s3-bar');
-  const s1Status = document.getElementById('s1-status');
-  const s2Status = document.getElementById('s2-status');
-  const s3Status = document.getElementById('s3-status');
-
-  btn.disabled = true;
-  btn.innerHTML = `<span>⏳ In Progress...</span>`;
-
-  s1Bar.style.width = '0%'; s2Bar.style.width = '0%'; s3Bar.style.width = '0%';
-  s1Status.innerText = 'READING 4.32M ROWS'; s1Status.style.color = 'var(--cyan)';
-  log.innerHTML += `<br>[1/3] Reading 4,320,000 smart meter partitions across worker nodes...`;
-  log.scrollTop = log.scrollHeight;
-
-  setTimeout(() => {
-    s1Bar.style.width = '100%';
-    s1Status.innerText = 'COMPLETED (4.32M ROWS)'; s1Status.style.color = 'var(--emerald)';
-    s2Status.innerText = 'COMPUTING SPIKE RATIO'; s2Status.style.color = 'var(--cyan)';
-    log.innerHTML += `<br>[2/3] Extracting 10 behavioral rolling features and spike ratios...`;
-    log.scrollTop = log.scrollHeight;
-
-    setTimeout(() => {
-      s2Bar.style.width = '100%';
-      s2Status.innerText = 'COMPLETED (10 FEATURES)'; s2Status.style.color = 'var(--emerald)';
-      s3Status.innerText = 'INFERENCING XGBOOST'; s3Status.style.color = 'var(--cyan)';
-      log.innerHTML += `<br>[3/3] Feeding features into Random Forest / XGBoost ensemble...`;
-      log.scrollTop = log.scrollHeight;
-
-      setTimeout(() => {
-        s3Bar.style.width = '100%';
-        s3Status.innerText = 'INFERENCE READY (99.2% ACC)'; s3Status.style.color = 'var(--emerald)';
-        log.innerHTML += `<br><b>[SUCCESS]</b> Batch complete. 14,210 critical anomalies isolated. Pipeline latency: 1.28s.`;
-        log.scrollTop = log.scrollHeight;
-        btn.disabled = false;
-        btn.innerHTML = `<span>▶ Run Again</span>`;
-        isSparkRunning = false;
-      }, 700);
-    }, 700);
-  }, 700);
-}
-
-/* ==================== 6. LIVE ML HERO SANDBOX ==================== */
-function updateHeroML() {
-  const spike = parseFloat(document.getElementById('hero-slider-spike').value);
-  const psi = parseInt(document.getElementById('hero-slider-psi').value);
+/* ---- Spark Simulation ---- */
+let sparkRunning = false;
+function runSparkSim() {
+  if (sparkRunning) return;
+  sparkRunning = true;
+  const btn = document.getElementById('spark-btn');
+  const log = document.getElementById('spark-log');
+  btn.disabled = true; btn.textContent = '⏳ Running...';
   
-  document.getElementById('hero-val-spike').innerText = spike.toFixed(1) + 'x';
-  document.getElementById('hero-val-psi').innerText = psi + ' PSI';
-
-  const box = document.getElementById('hero-ml-box');
-  const pred = document.getElementById('hero-ml-prediction');
-  const conf = document.getElementById('hero-ml-conf');
-
-  const riskScore = (spike * 15) + (psi * 1.2);
-
-  if (riskScore > 65) {
-    box.style.background = 'rgba(244, 63, 94, 0.12)';
-    box.style.borderColor = 'rgba(244, 63, 94, 0.4)';
-    pred.style.color = 'var(--rose)';
-    pred.innerText = '🚨 CRITICAL LEAKAGE DETECTED';
-    conf.innerText = `Model Confidence: ${(88 + (riskScore/10)).toFixed(1)}% • Pipe Burst Risk: HIGH`;
-  } else if (riskScore > 35) {
-    box.style.background = 'rgba(245, 158, 11, 0.12)';
-    box.style.borderColor = 'rgba(245, 158, 11, 0.4)';
-    pred.style.color = 'var(--amber)';
-    pred.innerText = '⚠️ WARNING: SUSPECTED LEAK';
-    conf.innerText = `Model Confidence: ${(82 + (riskScore/12)).toFixed(1)}% • Pressure Anomaly: MODERATE`;
-  } else {
-    box.style.background = 'rgba(16, 185, 129, 0.12)';
-    box.style.borderColor = 'rgba(16, 185, 129, 0.4)';
-    pred.style.color = 'var(--emerald)';
-    pred.innerText = '✅ NORMAL SYSTEM TELEMETRY';
-    conf.innerText = `Model Confidence: 96.2% • All Sensors Baseline`;
-  }
+  const b1 = document.getElementById('sb1'), b2 = document.getElementById('sb2'), b3 = document.getElementById('sb3');
+  const s1 = document.getElementById('ss1'), s2 = document.getElementById('ss2'), s3 = document.getElementById('ss3');
+  b1.style.width = b2.style.width = b3.style.width = '0%';
+  
+  log.innerHTML = '<span class="log-info">[START] Initializing Spark session on distributed cluster...</span>';
+  s1.textContent = 'READING...'; s1.style.color = '#FF4D1C';
+  
+  setTimeout(() => {
+    b1.style.width = '100%';
+    s1.textContent = 'DONE — 4,320,000 rows ingested'; s1.style.color = '#B8F067';
+    log.innerHTML += '<br><span class="log-info">[1/3]</span> 4.32M smart meter records partitioned across workers.';
+    s2.textContent = 'COMPUTING...'; s2.style.color = '#FF4D1C';
+    
+    setTimeout(() => {
+      b2.style.width = '100%';
+      s2.textContent = 'DONE — 10 features extracted'; s2.style.color = '#B8F067';
+      log.innerHTML += '<br><span class="log-info">[2/3]</span> Spike-ratio, rolling variance, night-idle delta computed.';
+      s3.textContent = 'INFERENCING...'; s3.style.color = '#FF4D1C';
+      
+      setTimeout(() => {
+        b3.style.width = '100%';
+        s3.textContent = 'DONE — 14,210 anomalies flagged'; s3.style.color = '#B8F067';
+        log.innerHTML += '<br><span class="log-success">[SUCCESS]</span> Ensemble complete. 14,210 critical leaks isolated. Latency: 1.28s.';
+        log.scrollTop = log.scrollHeight;
+        btn.disabled = false; btn.textContent = '▶ Run Again';
+        sparkRunning = false;
+      }, 650);
+    }, 650);
+  }, 650);
 }
 
-/* ==================== 7. DEDICATED SANDBOX RUNNERS ==================== */
-function runDedicatedSandbox() {
-  const spike = parseFloat(document.getElementById('sb-spike').value);
-  const psi = parseInt(document.getElementById('sb-psi').value);
-  const night = parseInt(document.getElementById('sb-night').value);
-
-  document.getElementById('sb-val-spike').innerText = spike.toFixed(1) + 'x baseline';
-  document.getElementById('sb-val-psi').innerText = psi + ' PSI drop';
-  document.getElementById('sb-val-night').innerText = night + ' L/hr';
+/* ---- Water Sandbox ---- */
+function updateWaterSandbox() {
+  const spike = parseFloat(document.getElementById('s-spike').value);
+  const psi = parseInt(document.getElementById('s-psi').value);
+  const night = parseInt(document.getElementById('s-night').value);
+  document.getElementById('v-spike').textContent = spike.toFixed(1) + '× baseline';
+  document.getElementById('v-psi').textContent = psi + ' PSI drop';
+  document.getElementById('v-night').textContent = night + ' L/hr';
 
   const risk = (spike * 12) + (psi * 1.1) + (night * 0.4);
-  const box = document.getElementById('sb-result-box');
-  const text = document.getElementById('sb-prediction-text');
-  const conf = document.getElementById('sb-conf-text');
+  const result = document.getElementById('water-result');
+  const pred = document.getElementById('water-pred');
+  const conf = document.getElementById('water-conf');
 
   if (risk > 60) {
-    box.style.background = 'rgba(244, 63, 94, 0.12)';
-    box.style.borderColor = 'rgba(244, 63, 94, 0.4)';
-    text.style.color = 'var(--rose)';
-    text.innerText = 'CRITICAL WATER LEAKAGE DETECTED';
-    conf.innerText = `Anomaly Probability: ${Math.min(99.4, 70 + risk*0.3).toFixed(1)}% • Health Index: 24/100`;
+    result.style.borderColor = '#FF4D1C';
+    pred.style.color = '#FF4D1C';
+    pred.textContent = 'CRITICAL — PIPE BURST RISK';
+    conf.textContent = `Anomaly probability: ${Math.min(99.4, 70 + risk * 0.3).toFixed(1)}% · Health index: 22/100`;
   } else if (risk > 32) {
-    box.style.background = 'rgba(245, 158, 11, 0.12)';
-    box.style.borderColor = 'rgba(245, 158, 11, 0.4)';
-    text.style.color = 'var(--amber)';
-    text.innerText = 'WARNING: SUSPECTED ANOMALOUS SPIKE';
-    conf.innerText = `Anomaly Probability: ${(40 + risk*0.5).toFixed(1)}% • Health Index: 68/100`;
+    result.style.borderColor = '#F5A623';
+    pred.style.color = '#F5A623';
+    pred.textContent = 'WARNING — SUSPECTED LEAK';
+    conf.textContent = `Anomaly probability: ${(40 + risk * 0.5).toFixed(1)}% · Health index: 64/100`;
   } else {
-    box.style.background = 'rgba(16, 185, 129, 0.12)';
-    box.style.borderColor = 'rgba(16, 185, 129, 0.4)';
-    text.style.color = 'var(--emerald)';
-    text.innerText = 'NORMAL CONSUMPTION PATTERN';
-    conf.innerText = `Anomaly Probability: 12.3% • Health Index: 98/100`;
+    result.style.borderColor = 'rgba(255,255,255,0.07)';
+    pred.style.color = '#B8F067';
+    pred.textContent = 'NORMAL CONSUMPTION PATTERN';
+    conf.textContent = `Anomaly probability: 12.3% · Health index: 98/100`;
   }
 }
 
-function runDedicatedCrimeSandbox() {
-  const hour = parseInt(document.getElementById('sb-hour').value);
-  const history = parseInt(document.getElementById('sb-history').value);
-  const density = parseInt(document.getElementById('sb-district').value);
+/* ---- Crime Sandbox ---- */
+function updateCrimeSandbox() {
+  const hour = parseInt(document.getElementById('s-hour').value);
+  const hist = parseInt(document.getElementById('s-hist').value);
+  const dens = parseInt(document.getElementById('s-dens').value);
+  document.getElementById('v-hour').textContent = `${hour.toString().padStart(2,'0')}:00 (${hour >= 18 || hour <= 5 ? 'Night' : 'Day'})`;
+  document.getElementById('v-hist').textContent = `${hist} incidents`;
+  document.getElementById('v-dens').textContent = dens === 3 ? 'High Density' : dens === 2 ? 'Medium Density' : 'Low Density';
 
-  document.getElementById('sb-val-hour').innerText = `${hour}:00 (${hour >= 18 || hour <= 5 ? 'Night' : 'Day'})`;
-  document.getElementById('sb-val-history').innerText = `${history} incidents / 7d`;
-  document.getElementById('sb-val-district').innerText = density === 3 ? 'High Density Ward' : (density === 2 ? 'Medium Density' : 'Low Density');
+  const nightM = (hour >= 20 || hour <= 4) ? 1.5 : 0.8;
+  const threat = (hist * 0.7 + dens * 18) * nightM;
+  const result = document.getElementById('crime-result');
+  const pred = document.getElementById('crime-pred');
+  const conf = document.getElementById('crime-conf');
 
-  const nightMultiplier = (hour >= 20 || hour <= 4) ? 1.5 : 0.8;
-  const threatScore = (history * 0.7 + density * 18) * nightMultiplier;
-
-  const box = document.getElementById('sb-crime-result-box');
-  const text = document.getElementById('sb-crime-prediction-text');
-  const conf = document.getElementById('sb-crime-conf-text');
-
-  if (threatScore > 55) {
-    box.style.background = 'rgba(244, 63, 94, 0.12)';
-    box.style.borderColor = 'rgba(244, 63, 94, 0.4)';
-    text.style.color = 'var(--rose)';
-    text.innerText = 'HIGH RISK HOTSPOT ZONE';
-    conf.innerText = `Forecasted Incidents: ${Math.round(threatScore * 0.9)}/week • Regressor RMSE: 48.31`;
-  } else if (threatScore > 30) {
-    box.style.background = 'rgba(245, 158, 11, 0.12)';
-    box.style.borderColor = 'rgba(245, 158, 11, 0.4)';
-    text.style.color = 'var(--amber)';
-    text.innerText = 'MODERATE SPATIAL RISK';
-    conf.innerText = `Forecasted Incidents: ${Math.round(threatScore * 0.8)}/week • KMeans Cluster: Medium`;
+  if (threat > 55) {
+    result.style.borderColor = '#FF4D1C';
+    pred.style.color = '#FF4D1C';
+    pred.textContent = 'HIGH RISK HOTSPOT ZONE';
+    conf.textContent = `Forecast: ${Math.round(threat * 0.9)}/week · RMSE: 48.31`;
+  } else if (threat > 30) {
+    result.style.borderColor = '#F5A623';
+    pred.style.color = '#F5A623';
+    pred.textContent = 'MODERATE SPATIAL RISK';
+    conf.textContent = `Forecast: ${Math.round(threat * 0.8)}/week · KMeans Cluster: Medium`;
   } else {
-    box.style.background = 'rgba(16, 185, 129, 0.12)';
-    box.style.borderColor = 'rgba(16, 185, 129, 0.4)';
-    text.style.color = 'var(--emerald)';
-    text.innerText = 'LOW RISK SPATIAL ZONE';
-    conf.innerText = `Forecasted Incidents: ${Math.round(threatScore * 0.6)}/week • Safe Grid Baseline`;
+    result.style.borderColor = 'rgba(255,255,255,0.07)';
+    pred.style.color = '#B8F067';
+    pred.textContent = 'LOW RISK ZONE';
+    conf.textContent = `Forecast: ${Math.round(threat * 0.6)}/week · Baseline`;
   }
 }
 
-/* ==================== 8. PROJECT FILTERING ==================== */
-const filterButtons = document.querySelectorAll('.filter-btn');
-const projectCards = document.querySelectorAll('.project-card');
-
-filterButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filterButtons.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const filter = btn.getAttribute('data-filter');
-
-    projectCards.forEach(card => {
-      const categories = card.getAttribute('data-category');
-      if (filter === 'all' || (categories && categories.includes(filter))) {
-        card.style.display = 'flex';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  });
-});
-
-/* ==================== 9. 3D CARD TILT EFFECT ==================== */
-function handleCardTilt(e, card) {
-  const rect = card.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-  
-  card.style.setProperty('--mouse-x', `${x}px`);
-  card.style.setProperty('--mouse-y', `${y}px`);
+/* ---- Toast ---- */
+function copyText(text, msg) {
+  navigator.clipboard.writeText(text).then(() => showToast(msg));
 }
-
-/* ==================== 10. MODAL CASE STUDY SYSTEM ==================== */
-const modalData = {
-  water: {
-    title: "Smart City Water Leakage Detection System",
-    category: "Apache Spark (PySpark) • Machine Learning • Hugging Face",
-    metrics: "4.32 Million+ Records Processed • 11-Page Interactive Dashboard",
-    overview: "A scalable big data analytics pipeline and machine learning system engineered to detect municipal water leaks and pipe failures before catastrophic loss occurs.",
-    architecture: `
-      1. <b>Distributed Ingestion:</b> 4.32M+ smart meter records partitioned via Apache Spark.<br>
-      2. <b>Spike-Ratio Feature Engineering:</b> 10 rolling behavioral features including night idle consumption delta, pressure drop variance, and flow spikes.<br>
-      3. <b>Ensemble Classification:</b> Random Forest and XGBoost classifiers categorizing severity from Normal to Critical.<br>
-      4. <b>Interactive Cloud Deployment:</b> 11-page full-featured dashboard with What-If simulations hosted on Hugging Face Spaces &amp; Streamlit Cloud.
-    `,
-    github: "https://github.com/khakhkharrushit/Smart_WaterLeakage_Analysis_bigdata_analytics_machinelearning"
-  },
-  crime: {
-    title: "Crime Intelligence & Predictive Forecasting System",
-    category: "Time-Series Forecasting • KMeans Hotspot Clustering • Scikit-learn",
-    metrics: "1.45M Chicago Records • Random Forest RMSE: 48.31",
-    overview: "End-to-end predictive crime intelligence system analyzing multi-year Chicago police records to identify high-risk spatial hotspots and predict incident volume.",
-    architecture: `
-      1. <b>Spatial Clustering:</b> KMeans algorithm categorizing locations into High/Medium/Low spatial risk zones with centroid hotspot overlays.<br>
-      2. <b>Time-Series Modeling:</b> ARIMA models combined with rolling lag regressors achieving an optimized RMSE of 48.31.<br>
-      3. <b>Interactive Visualization:</b> Multi-page Streamlit application featuring interactive Folium heatmaps and What-If scenario simulations.
-    `,
-    github: "https://github.com/khakhkharrushit/crime-intelligence-system"
-  },
-  facial: {
-    title: "Facial Expression Detection Using Deep Learning",
-    category: "TensorFlow • OpenCV • Computer Vision",
-    metrics: "Custom MLP Architecture • Multi-Class Classification",
-    overview: "Deep learning computer vision pipeline designed for real-time facial expression classification from raw webcam feeds and image datasets.",
-    architecture: `
-      1. <b>OpenCV Preprocessing:</b> Face detection, landmark extraction, and Region of Interest (ROI) normalization.<br>
-      2. <b>Neural Network Architecture:</b> Custom Multi-Layer Perceptron (MLP) built in TensorFlow trained on multi-class emotion datasets.<br>
-      3. <b>Classification:</b> High-confidence classification across Happy, Sad, Neutral, Surprise, and Angry expressions.
-    `,
-    github: "https://github.com/khakhkharrushit"
-  },
-  ayurveda: {
-    title: "Kaithi Ayurveda — 3D E-Commerce Platform",
-    category: "Streamlit • Three.js WebGL • Full-Stack",
-    metrics: "Interactive 3D Product Viewer • GLB / GLTF Support",
-    overview: "A modern Ayurveda e-commerce web application featuring custom responsive UI and interactive in-browser 3D model visualization.",
-    architecture: `
-      1. <b>Frontend & Backend:</b> Python Streamlit with custom CSS injection and dynamic inventory filtering.<br>
-      2. <b>3D WebGL Engine:</b> Three.js procedural rendering engine supporting interactive 360-degree product inspection and GLB model parsing.
-    `,
-    github: "https://github.com/khakhkharrushit/kaithi-ayurveda"
-  }
-};
-
-function openModal(key) {
-  const data = modalData[key];
-  if (!data) return;
-
-  const content = document.getElementById('modal-content');
-  content.innerHTML = `
-    <div style="margin-bottom: 8px;" class="card-category">${data.category}</div>
-    <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 6px;">${data.title}</h2>
-    <div style="font-family: var(--ff-mono); font-size: 0.85rem; color: var(--emerald); font-weight: 700; margin-bottom: 20px;">
-      ${data.metrics}
-    </div>
-    <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 24px;">${data.overview}</p>
-    
-    <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; margin-bottom: 28px;">
-      <h4 style="font-size: 1rem; font-weight: 700; color: var(--cyan); margin-bottom: 12px;">Architecture &amp; Engineering Details:</h4>
-      <div style="font-size: 0.9rem; line-height: 1.7; color: var(--text-main);">${data.architecture}</div>
-    </div>
-
-    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-      <a href="${data.github}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-        <span>View Repository on GitHub</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-      <button class="btn btn-secondary" onclick="closeModal()">Close Window</button>
-    </div>
-  `;
-
-  const overlay = document.getElementById('project-modal');
-  overlay.classList.add('active');
-}
-
-function closeModal() {
-  document.getElementById('project-modal').classList.remove('active');
-}
-
-function closeModalOnOverlay(e) {
-  if (e.target.id === 'project-modal') closeModal();
-}
-
-function openPipelineDetail(stage) {
-  document.querySelector(`[href="#projects"]`).click();
-}
-
-/* ==================== 11. TOAST NOTIFICATION & COPY UTILITY ==================== */
-function copyContact(text, message) {
-  navigator.clipboard.writeText(text).then(() => {
-    const toast = document.getElementById('toast');
-    const toastText = document.getElementById('toast-text');
-    toastText.innerText = message || 'Copied to clipboard!';
-    toast.classList.add('show');
-    setTimeout(() => { toast.classList.remove('show'); }, 3000);
-  });
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg || 'Copied ✓';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
 }
 </script>
-
 </body>
 </html>
